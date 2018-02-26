@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import {API_URL, IMGUR_CLIENT_ID } from './endpoints'
+import { API_URL } from './endpoints'
 
 Vue.use(VueAxios, axios)
 Vue.axios.defaults.baseURL = API_URL
@@ -9,13 +9,21 @@ Vue.axios.defaults.baseURL = API_URL
 
 const api = {
 
-  get (resource, params) {
+  get (url, params) {
     return Vue.axios
-      .get(resource,  params)
+      .get(url,  params)
       .catch((error) => {
         console.log(error);
       })
-  }
+  },
+
+  post (url, params) {
+    return Vue.axios
+      .post(url, params)
+      .catch((error) => {
+        console.log(error);
+      })
+  },
 
 };
 

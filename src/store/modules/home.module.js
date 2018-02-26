@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import api from '../../api/api' //import api-request actions
-// import {
-//   //import names for actions
-//   FETCH_POSTS,
-// } from './actions.types'
-// import {
-//   //import names for mutations
-//   SET_POSTS,
-// } from './mutations.types'
+import { POSTS } from '../../api/endpoints'
+
+import {
+  //import names for actions
+  FETCH_POSTS,
+} from './actions.types'
+
+import {
+  //import names for mutations
+  SET_POSTS,
+} from './mutations.types'
 
 
 const state = {
@@ -16,22 +19,26 @@ const state = {
 };
 
 const getters = {
-  getName(state){
-    return state.name;
+  getPosts(state){
+    return state.posts;
   }
 };
 
 const mutations = {
-  setPosts(state, data){
+  [SET_POSTS](state, data){
         state.posts = data;
         console.log(data);
   }
 };
 
 const actions = {
-  fetchPosts( {commit} ){
-    api.get('/users')
-    .then( res => { commit('setPosts', res.data) } );
+  [FETCH_POSTS]( {commit}, token ){
+
+    api.get(POSTS, token )
+    .then( res => {
+        console.log(token);
+        commit(SET_POSTS, res)
+    } );
   }
 };
 

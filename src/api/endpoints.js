@@ -1,1 +1,5 @@
-export const API_URL = 'https://jsonplaceholder.typicode.com'
+export const ROOT           =      'http://192.168.0.154:8000'
+export const API_URL        =      ROOT + '/api'
+export const LOGIN          =      API_URL + '/auth/login'
+export const POSTS          =      API_URL + '/posts?amount=10&page=1'
+export const POSTS_TEST     =      API_URL + '/posts/test?amount=10&page=1'

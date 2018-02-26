@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h2>{{getName}}</h2>
+    <router-view></router-view>
+    
   </div>
 </template>
 
@@ -10,20 +11,25 @@ import {mapActions} from 'vuex'
 import {mapGetters} from 'vuex'
 
 export default {
-  computed:{
-    ...mapGetters([
-      'getName'
-    ]),
-  },
-  methods:{
-      ...mapActions([
-        'fetchPosts'
-      ])
-  },
-
-  created(){
-    this.$store.dispatch('fetchPosts')
-  }
+    // components:{
+    //
+    // },
+    //
+    // computed:{
+    // ...mapGetters([
+    //   'getPosts'
+    // ]),
+    // },
+    //
+    // methods:{
+    //   ...mapActions([
+    //     'fetchPosts'
+    //   ])
+    // },
+    //
+    // created(){
+    // this.$store.dispatch('fetchPosts')
+    // }
 }
 </script>
 
