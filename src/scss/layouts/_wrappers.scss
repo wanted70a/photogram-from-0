@@ -1,0 +1,15 @@
+// ----- Wrappers
+
+#main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.l {
+    max-width: $site-desk-design;
+    margin: auto;
+    padding: 0;
+    width: 100%;
+}

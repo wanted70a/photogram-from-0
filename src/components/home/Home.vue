@@ -1,14 +1,17 @@
 <template lang="html">
     <div class="b-posts-list">
         <app-posts-list></app-posts-list>
+        <button type="button" @click='onFetch'>FETCH</button>
     </div>
 </template>
 
 <script>
 import { FETCH_POSTS } from '../../store/modules/actions.types.js'
-import PostsList from '../posts/PostsList.vue'
+import  api from '../../api/api.js'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
+
+import PostsList from '../posts/PostsList.vue'
 
 export default {
     components:{
@@ -24,13 +27,16 @@ export default {
     methods:{
         ...mapActions([
             FETCH_POSTS,
-        ])
+        ]),
+        onFetch(){
+            let headers = api.authHeader();
+            this.$store.dispatch( FETCH_POSTS,  headers );
+        }
     },
 
     created(){
-        console.log(this.getToken);
-        let auth = { token: this.getToken };
-        this.$store.dispatch( FETCH_POSTS,  auth)
+        let headers = api.authHeader();
+        this.$store.dispatch( FETCH_POSTS, headers );
     },
 }
 </script>

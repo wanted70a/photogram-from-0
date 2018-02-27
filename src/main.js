@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import './scss/main-scss.scss'
+import './scss/style.scss'
 
 import router from './router/router.js'
 import store from './store/store.js'
@@ -11,4 +11,4 @@ new Vue({
   store,
   router,
   render: h => h(App)
-}).$mount('#app')
+})

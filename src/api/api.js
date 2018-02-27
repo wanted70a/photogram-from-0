@@ -7,6 +7,7 @@ Vue.use(VueAxios, axios)
 Vue.axios.defaults.baseURL = API_URL
 
 
+
 const api = {
 
   get (url, params) {
@@ -25,6 +26,16 @@ const api = {
       })
   },
 
+  authHeader(){
+      let token     = window.localStorage.token;
+      let headers   = { headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer' + token
+        }
+      };
+      return headers;
+  }
+  
 };
 
 

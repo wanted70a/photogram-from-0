@@ -3,30 +3,58 @@
     <div class="mo-post-inner">
         <div class="mo-post__avatar">
             <div class="mo-post__avatar__profile-picture">
-                <img src='https://dummyimage.com/40x40/000/fff.jpg'  alt="">
+                <img :src='IMG + post.user_image.avatar'  alt="">
             </div>
-            <h3 class='mo-post__avatar__name'>post.user.username</h3>
+            <h3 class='mo-post__avatar__name'>{{post.username}}</h3>
         </div>
         <div class="mo-post__media">
-            <img v-if="true" src="https://dummyimage.com/400x400/000/fff.jpg" alt="">
+            <img v-if="post.type_id == 1" :src='IMG + post.media.medium' alt="">
             <div class="" v-else>
-                <video src="https://dummyimage.com/400x400/000/fff.jpg" autoplay poster="posterimage.jpg"></video>
+                <video :src="IMG + post.media" autoplay poster="posterimage.jpg"></video>
             </div>
         </div>
         <div class="mo-post__stats">
-            <span>Add Comm</span>
-            <span>Likes: post.likes_count</span>
+            <span>Comm</span>
+            <span>Like</span>
+            <span>Likes: {{post.likes_count}}</span>
         </div>
         <div class="mo-post__comments">
-            <p>First 3 comments</p>
-            <p>view all comments</p>
+            <div class="mo-post__comments__comment"  v-for='(comment, index) in post.comments' :key='comment.id' v-if='index < 3'>
+                <span><img :src="IMG + comment.user_image.avatar" alt=""></span>
+                <span>{{comment.body}}</span>
+            </div>
+        </div>
+
+        <div class="mo-post__comments__all">
+            <p @click='viewComments(post.id)'>see all comments</p>
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import { IMG } from '../../api/endpoints'
+import { mapGetters } from 'vuex'
+//import PostComeents from './PostComments.vue'
 export default {
-
+    data(){
+        return {
+            IMG:IMG,
+        }
+    },
+    methods:{
+        viewComments( id ){
+            console.log(this.getPostsObject['post'+ id]);
+        }
+    },
+    computed:{
+        ...mapGetters([
+            'getPostsObject',
+        ])
+    },
+    components:{
+        //'app-post-comments':PostComeents
+    },
+    props:['post']
 }
 </script>

@@ -1,0 +1,9 @@
+button{
+    background: gray;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.c-test {
+    @include font-size(45px,30px,35px);
+    color: #ffffff;
+}

@@ -18,6 +18,8 @@
         <p class='b-signup__terms'>
             Lorem Ipsum <router-link :to="{ name: 'terms' }">Terms of Use</router-link>
         </p>
+        <p>Already have account <router-link :to="{ name: 'login' }">Login</router-link></p>
+
     </div>
 </template>
 

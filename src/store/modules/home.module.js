@@ -10,34 +10,58 @@ import {
 import {
   //import names for mutations
   SET_POSTS,
+  SET_LOGIN_TRUE,
+  SET_LOGIN_FALSE,
 } from './mutations.types'
 
 
 const state = {
   posts:[],
-  name:'stefan'
+  name:'stefan',
+  isLoading:'',
 };
 
 const getters = {
   getPosts(state){
     return state.posts;
+  },
+
+  getPostsObject(state){
+      let temp = { };
+      state.posts.map( item => {
+          temp['post'+item.id] = item;
+      });
+      return temp;
+  },
+
+  getIsLoading( state ){
+      return state.isLoading;
   }
+
 };
 
 const mutations = {
   [SET_POSTS](state, data){
         state.posts = data;
-        console.log(data);
-  }
+  },
+  [SET_LOGIN_TRUE](state){
+      state.isLoading = true;
+  },
+  [SET_LOGIN_FALSE](state){
+      state.isLoading = false;
+  },
 };
 
 const actions = {
-  [FETCH_POSTS]( {commit}, token ){
+  [FETCH_POSTS]( {commit}, token, state ){
+    commit(SET_LOGIN_TRUE);
 
     api.get(POSTS, token )
     .then( res => {
-        console.log(token);
-        commit(SET_POSTS, res)
+        let data = res.data.data;
+        console.log(data);
+        commit(SET_POSTS, data)
+        commit(SET_LOGIN_FALSE)
     } );
   }
 };
