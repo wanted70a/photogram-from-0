@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="b-posts-list">
+        <router-view></router-view>
         <app-posts-list></app-posts-list>
         <button type="button" @click='onFetch'>FETCH</button>
     </div>

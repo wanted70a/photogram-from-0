@@ -7,6 +7,7 @@ import Home from '../components/home/Home.vue'
 import Login from '../components/home/Login.vue'
 import Signup from '../components/home/Signup.vue'
 import Terms from '../components/home/Terms.vue'
+import Comments from '../components/comments/Comments.vue'
 import ForgotPassword from '../components/home/ForgotPassword.vue'
 
 
@@ -17,13 +18,22 @@ var routes = [
         path:'/',
         component:Login,
         name:'login',
-        meta: { requiresAuth: false }
+        meta: { requiresAuth: false },
     },
     {
       path: '/home',
       component: Home,
       name:'home',
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
+      children: [
+        {
+          // UserProfile will be rendered inside User's <router-view>
+          // when /user/:id/profile is matched
+          path: '/comments',
+          component: Comments,
+          name:'comments',
+        },
+      ]
     },
     {
       path: '/signup',

@@ -1,0 +1,31 @@
+.b-comments-all{
+    position: fixed;
+    top:5%;
+    padding: 4rem 2rem;
+    width:50%;
+    left:25%;
+    background: rgba(0,0,0,0.8);
+    color:white;
+    @include breakpoint(tablet){
+
+    }
+
+    @include breakpoint(desktop){
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    &__inner{
+
+    }
+
+    &__list{
+
+    }
+
+
+    &__comment{
+
+    }
+}

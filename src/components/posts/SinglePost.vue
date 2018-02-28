@@ -19,14 +19,19 @@
             <span>Likes: {{post.likes_count}}</span>
         </div>
         <div class="mo-post__comments">
-            <div class="mo-post__comments__comment"  v-for='(comment, index) in post.comments' :key='comment.id' v-if='index < 3'>
-                <span><img :src="IMG + comment.user_image.avatar" alt=""></span>
-                <span>{{comment.body}}</span>
+            <div class="mo-post__comments__comment"  v-for='(comment, index) in post.comments'  v-if='index < 3' :key='comment.id'>
+                <div class="mo-post__comments__comment__img">
+                    <img :src="IMG + comment.user_image.avatar" alt="">
+                </div>
+                <p class="mo-post__comments__comment__text">{{comment.body}}</p>
             </div>
         </div>
 
-        <div class="mo-post__comments__all">
-            <p @click='viewComments(post.id)'>see all comments</p>
+        <div class="mo-post__comments__cta">
+            <router-link :to="{ name: 'comments' }" v-if='post.comments.length > 0'>
+                <p @click='viewComments(post.id)'>View All Comments</p>
+            </router-link>
+            <p v-else>Be First To Comment</p>
         </div>
     </div>
 </div>
@@ -35,7 +40,8 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-//import PostComeents from './PostComments.vue'
+import { mapMutations } from 'vuex'
+import { SET_CURRENT_POST_ID } from '../../store/modules/mutations.types'
 export default {
     data(){
         return {
@@ -44,16 +50,13 @@ export default {
     },
     methods:{
         viewComments( id ){
-            console.log(this.getPostsObject['post'+ id]);
+            this.$store.commit(SET_CURRENT_POST_ID, id)
         }
     },
     computed:{
         ...mapGetters([
             'getPostsObject',
         ])
-    },
-    components:{
-        //'app-post-comments':PostComeents
     },
     props:['post']
 }

@@ -12,11 +12,13 @@ import {
   SET_POSTS,
   SET_LOGIN_TRUE,
   SET_LOGIN_FALSE,
+  SET_CURRENT_POST_ID,
 } from './mutations.types'
 
 
 const state = {
   posts:[],
+  currentPostId:'',
   name:'stefan',
   isLoading:'',
 };
@@ -36,6 +38,16 @@ const getters = {
 
   getIsLoading( state ){
       return state.isLoading;
+  },
+
+  getCurrentPostId( state ){
+      return state.currentPostId;
+  },
+
+  getPostComments(state, getters, id){
+      var comments = {};
+      var comments = getters.getPostsObject[state.currentPostId].comments
+      return comments;
   }
 
 };
@@ -50,6 +62,9 @@ const mutations = {
   [SET_LOGIN_FALSE](state){
       state.isLoading = false;
   },
+  [SET_CURRENT_POST_ID](state, id){
+      state.currentPostId = 'post' + id;
+  }
 };
 
 const actions = {

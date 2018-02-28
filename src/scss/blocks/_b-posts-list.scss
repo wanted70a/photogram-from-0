@@ -1,0 +1,14 @@
+.b-posts-list{
+    &__inner{
+        @include breakpoint(tablet){
+
+        }
+
+        @include breakpoint(desktop){
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+        }
+    }
+
+}
