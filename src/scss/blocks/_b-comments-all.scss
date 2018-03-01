@@ -2,30 +2,24 @@
     position: fixed;
     top:5%;
     padding: 4rem 2rem;
-    width:50%;
-    left:25%;
+    width:100vw;
+    //height:100vh;
     background: rgba(0,0,0,0.8);
-    color:white;
     @include breakpoint(tablet){
 
     }
 
     @include breakpoint(desktop){
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
+
     }
 
     &__inner{
-
+        width:50%;
+        position: relative;
+        margin:0 auto;
+        background: white;
+        padding: 2rem 4rem;
+        color:gray;
     }
 
-    &__list{
-
-    }
-
-
-    &__comment{
-
-    }
 }

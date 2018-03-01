@@ -7,8 +7,9 @@ import Home from '../components/home/Home.vue'
 import Login from '../components/home/Login.vue'
 import Signup from '../components/home/Signup.vue'
 import Terms from '../components/home/Terms.vue'
-import Comments from '../components/comments/Comments.vue'
 import ForgotPassword from '../components/home/ForgotPassword.vue'
+import Comments from '../components/comments/Comments.vue'
+import PostDetails from '../components/posts/SinglePostDetails.vue'
 
 
 Vue.use(VueRouter);
@@ -27,11 +28,18 @@ var routes = [
       meta: { requiresAuth: true },
       children: [
         {
-          // UserProfile will be rendered inside User's <router-view>
-          // when /user/:id/profile is matched
+          // Comments Component will be rendered inside Home <router-view>
+          // when /comments is matched
           path: '/comments',
           component: Comments,
           name:'comments',
+        },
+        {
+          // Comments Component will be rendered inside Home <router-view>
+          // when /comments is matched
+          path: '/post',
+          component: PostDetails,
+          name:'postDetails',
         },
       ]
     },

@@ -1,0 +1,135 @@
+.b-post-details{
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    color:white;
+    width: 100%;
+
+    @include breakpoint( tablet ){
+
+    }
+    @include breakpoint( desktop ){
+        top:60px
+    }
+
+    // ----- Media objects
+    .mo-post{
+        @include breakpoint(tablet){
+
+        }
+        @include breakpoint(desktop){
+            width: 37rem;
+            margin: 0 auto;
+            margin-bottom: 2rem;
+        }
+        &__inner{
+
+        }
+
+        &__avatar{
+            @include breakpoint(tablet){
+
+            }
+            @include breakpoint(desktop){
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+            }
+
+            &__profile-picture{
+                width: 5rem;
+
+                & img{
+                    max-width: none;
+                    width: 100%;
+                }
+            }
+
+            &__name{
+                width:calc(100% - 5rem);
+                margin-left:2rem;
+            }
+        }
+
+        &__media{
+            margin-top:2rem;
+            & img{
+                max-width: none;
+                width: 100%;
+            }
+
+            & video{
+                max-width: none;
+                width: 100%;
+            }
+        }
+
+        &__stats{
+            padding:1.5rem 0;
+            @include breakpoint(tablet){
+                padding:1.5rem 0;
+
+            }
+            @include breakpoint(desktop){
+                display: flex;
+                flex-flow: row nowrap;
+                padding:1.5rem 0;
+                border-bottom:1px solid silver;
+            }
+
+        }
+
+        &__comments{
+            @include breakpoint(tablet){
+
+            }
+            @include breakpoint(desktop){
+                margin-top:2rem;
+            }
+
+            &__comment{
+                @include breakpoint(tablet){
+
+                }
+                @include breakpoint(desktop){
+                    display: flex;
+                    flex-flow: row nowrap;
+                    margin-bottom: 1.5rem;
+                }
+                &__img{
+                    width: 3rem;
+
+                    & img{
+                        //max-width: none;
+                        width: 100%;
+                    }
+                }
+
+                &__text{
+                    width:calc(100% - 3rem);
+                    margin-left:2rem;
+                    margin-top: 0.9rem;
+                    @include breakpoint(tablet){
+
+                    }
+                    @include breakpoint(desktop){
+                        width:calc(100% - 3rem);
+                        margin-left:2rem;
+                        margin-top: 0.9rem;
+                    }
+                }
+            }
+        }
+
+        &__comments__cta{
+
+        }
+
+        &__slider-controls{
+            display: block;
+            color:white;
+            font-weight: bold;
+            cursor:pointer;
+        }
+    }
+
+}

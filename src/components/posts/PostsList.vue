@@ -3,7 +3,7 @@
         <div v-if='getIsLoading'>
             LOADING...
         </div>
-        <app-single-post v-for='post in getPosts' :post='post' :key='post.id'></app-single-post>
+        <app-single-post v-for='post in getPostsArr' :post='post' :key='post.id'></app-single-post>
     </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 
     computed:{
         ...mapGetters([
-            'getPosts',
+            'getPostsArr',
             'getPostsObject',
             'getIsLoading'
         ])
@@ -26,6 +26,7 @@ export default {
 
     mounted(){
         console.log('mounted');
+        console.log(this.getPostsArr);
         console.log(this.getPostsObject);
     }
 }

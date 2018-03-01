@@ -1,6 +1,9 @@
 //export CONSTS with mutations names
-export const SET_POSTS               = 'setPosts';
+export const SET_POSTS_ARR           = 'setPostsArr';
+export const SET_POSTS_OBJ           = 'setPostsObject';
 export const SET_TOKEN               = 'setToken';
-export const SET_LOGIN_FALSE         = 'loginFalse';
-export const SET_LOGIN_TRUE          = 'loginTrue';
+export const SET_LOADING_FALSE       = 'loadingFalse';
+export const SET_LOADING_TRUE        = 'loadingTrue';
 export const SET_CURRENT_POST_ID     = 'setCurrentPostId';
+export const SET_CURRENT_POST        = 'setCurrentPost';
+export const SET_CURRENT_COMMENT     = 'setCurrentComment';

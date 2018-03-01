@@ -5,35 +5,40 @@ import { POSTS } from '../../api/endpoints'
 import {
   //import names for actions
   FETCH_POSTS,
+  UPDATE_POSTS_OBJ,
+  UPDATE_CURRENT_POST_ID,
+  UPDATE_CURRENT_POST,
+  UPDATE_CURRENT_COMMENT,
 } from './actions.types'
 
 import {
   //import names for mutations
-  SET_POSTS,
-  SET_LOGIN_TRUE,
-  SET_LOGIN_FALSE,
+  SET_POSTS_ARR,
+  SET_POSTS_OBJ,
+  SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
   SET_CURRENT_POST_ID,
+  SET_CURRENT_POST,
+  SET_CURRENT_COMMENT,
 } from './mutations.types'
 
 
 const state = {
-  posts:[],
+  postsArr:[],
+  postsObject:{},
   currentPostId:'',
-  name:'stefan',
+  currentPost:{},
+  postComments:[],
   isLoading:'',
 };
 
 const getters = {
-  getPosts(state){
-    return state.posts;
+  getPostsArr( state ){
+    return state.postsArr;
   },
 
-  getPostsObject(state){
-      let temp = { };
-      state.posts.map( item => {
-          temp['post'+item.id] = item;
-      });
-      return temp;
+  getPostsObject( state ){
+      return state.postsObject;
   },
 
   getIsLoading( state ){
@@ -44,41 +49,70 @@ const getters = {
       return state.currentPostId;
   },
 
-  getPostComments(state, getters, id){
-      var comments = {};
-      var comments = getters.getPostsObject[state.currentPostId].comments
-      return comments;
+  getPostComments( state ){
+      return state.postComments;
+  },
+  getPostObject( state ){
+      return state.currentPost
   }
 
 };
 
 const mutations = {
-  [SET_POSTS](state, data){
-        state.posts = data;
+  [SET_POSTS_ARR]( state, data ){
+        state.postsArr = data;
   },
-  [SET_LOGIN_TRUE](state){
+  [SET_POSTS_OBJ]( state, data ){
+      let temp = { };
+      data.map( item => {
+          temp['post'+item.id] = item;
+      });
+      state.postsObject = temp;
+  },
+  [SET_LOADING_TRUE](state){
       state.isLoading = true;
   },
-  [SET_LOGIN_FALSE](state){
+  [SET_LOADING_FALSE](state){
       state.isLoading = false;
   },
   [SET_CURRENT_POST_ID](state, id){
       state.currentPostId = 'post' + id;
-  }
+  },
+  [SET_CURRENT_POST](state, id){
+      state.currentPost = state.postsObject['post'+id];
+      state.currentPostId = id;
+      console.log(typeof state.currentPostId );
+  },
+  [SET_CURRENT_COMMENT](state, id){
+      state.postComments = state.postsObject['post'+id].comments;
+  },
 };
 
 const actions = {
-  [FETCH_POSTS]( {commit}, token, state ){
-    commit(SET_LOGIN_TRUE);
+    [FETCH_POSTS]( {commit}, token, state ){
+        commit(SET_LOADING_TRUE);
 
-    api.get(POSTS, token )
-    .then( res => {
-        let data = res.data.data;
-        console.log(data);
-        commit(SET_POSTS, data)
-        commit(SET_LOGIN_FALSE)
-    } );
-  }
+        api.get(POSTS, token )
+        .then( res => {
+            let data = res.data.data;
+            console.log(data);
+            commit(SET_POSTS_ARR, data);
+            commit(SET_POSTS_OBJ, data);
+            commit(SET_LOADING_FALSE);
+        });
+    },
+    [UPDATE_CURRENT_POST_ID]({commit}, id){
+        commit(SET_CURRENT_POST_ID, id)
+    },
+
+    [UPDATE_CURRENT_POST]({commit}, id){
+        console.log('ACTUON UPDATRE');
+        commit(SET_CURRENT_POST, id)
+    },
+
+    [UPDATE_CURRENT_COMMENT]({commit}, id){
+        commit(SET_CURRENT_COMMENT, id)
+    }
 };
 
 export default {

@@ -1,5 +1,7 @@
 // ----- Media objects
 .mo-post{
+    //position:relative;
+
     @include breakpoint(tablet){
 
     }
@@ -12,11 +14,32 @@
     }
 
     &__avatar{
-        &__profile-picture{}
-        &__name{}
+        @include breakpoint(tablet){
+
+        }
+        @include breakpoint(desktop){
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+        }
+
+        &__profile-picture{
+            width: 5rem;
+
+            & img{
+                max-width: none;
+                width: 100%;
+            }
+        }
+
+        &__name{
+            width:calc(100% - 5rem);
+            margin-left:2rem;
+        }
     }
 
     &__media{
+        margin-top:2rem;
         & img{
             max-width: none;
             width: 100%;
@@ -72,11 +95,26 @@
             &__text{
                 width:calc(100% - 3rem);
                 margin-left:2rem;
+                margin-top: 0.9rem;
+                @include breakpoint(tablet){
+
+                }
+                @include breakpoint(desktop){
+                    width:calc(100% - 3rem);
+                    margin-left:2rem;
+                    margin-top: 0.9rem;
+                }
             }
         }
     }
 
     &__comments__cta{
 
+    }
+
+    &__slider-controls{
+        display: none;
+        color:white;
+        font-weight: bold;
     }
 }

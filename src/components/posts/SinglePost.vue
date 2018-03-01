@@ -29,19 +29,31 @@
 
         <div class="mo-post__comments__cta">
             <router-link :to="{ name: 'comments' }" v-if='post.comments.length > 0'>
-                <p @click='viewComments(post.id)'>View All Comments</p>
+                <p @click='updateCurrentComment(post.id)'>View All Comments</p>
             </router-link>
             <p v-else>Be First To Comment</p>
+            <router-link :to="{ name: 'postDetails' }">
+                <p @click='updateCurrentPost(post.id)'>POST DETAILS</p>
+            </router-link>
+        </div>
+        <div class="mo-post__slider-controls">
+            <div class="mo-post__next" @click='updateCurrentPost(getCurrentPostId - 1)'>
+                NEXT
+            </div>
+            <div class="mo-post__prev" @click='updateCurrentPost(getCurrentPostId + 1)'>
+                PREV
+            </div>
         </div>
     </div>
+
 </div>
 </template>
 
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import { mapMutations } from 'vuex'
-import { SET_CURRENT_POST_ID } from '../../store/modules/mutations.types'
+import { mapActions } from 'vuex'
+import { UPDATE_CURRENT_POST_ID, UPDATE_CURRENT_COMMENT,  UPDATE_CURRENT_POST } from '../../store/modules/actions.types'
 export default {
     data(){
         return {
@@ -49,13 +61,15 @@ export default {
         }
     },
     methods:{
-        viewComments( id ){
-            this.$store.commit(SET_CURRENT_POST_ID, id)
-        }
+        ...mapActions([
+            UPDATE_CURRENT_COMMENT,
+            UPDATE_CURRENT_POST
+        ])
     },
     computed:{
         ...mapGetters([
             'getPostsObject',
+            'getCurrentPostId'
         ])
     },
     props:['post']

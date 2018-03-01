@@ -2,7 +2,6 @@
     <div class="b-posts-list">
         <router-view></router-view>
         <app-posts-list></app-posts-list>
-        <button type="button" @click='onFetch'>FETCH</button>
     </div>
 </template>
 
@@ -21,7 +20,8 @@ export default {
 
     computed:{
         ...mapGetters([
-            'getToken'
+            'getToken',
+            'getPostsObject'
         ])
     },
 
@@ -29,15 +29,11 @@ export default {
         ...mapActions([
             FETCH_POSTS,
         ]),
-        onFetch(){
-            let headers = api.authHeader();
-            this.$store.dispatch( FETCH_POSTS,  headers );
-        }
     },
 
     created(){
-        let headers = api.authHeader();
-        this.$store.dispatch( FETCH_POSTS, headers );
+        //let headers = api.authHeader();
+        //this.$store.dispatch( FETCH_POSTS, headers );
     },
 }
 </script>

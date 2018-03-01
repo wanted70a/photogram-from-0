@@ -11,6 +11,7 @@ import {
 import {
     //ACTIONS NAMES
     LOGIN_AUTH,
+    FETCH_POSTS,
 } from  './actions.types'
 
 
@@ -32,10 +33,13 @@ const mutations = {
 
 const actions = {
 
-    [LOGIN_AUTH]({ commit }, payload ){
+    [LOGIN_AUTH]({ commit, dispatch }, payload ){
+
         api.post(LOGIN, payload )
         .then( res => {
             commit(SET_TOKEN, res.data.token );
+            let headers = api.authHeader();
+            dispatch( FETCH_POSTS, headers);
             router.push({ name: 'home' });
         })
     }
