@@ -18,9 +18,9 @@ const api = {
       })
   },
 
-  post (url, params) {
+  post (url, params, headers) {
     return Vue.axios
-      .post(url, params)
+      .post(url, params, headers)
       .catch((error) => {
         console.log(error);
       })
@@ -30,12 +30,12 @@ const api = {
       let token     = window.localStorage.token;
       let headers   = { headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer' + token
+          'Authorization': 'Bearer ' + token
         }
       };
       return headers;
   }
-  
+
 };
 
 

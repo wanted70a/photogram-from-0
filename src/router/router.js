@@ -8,8 +8,9 @@ import Login from '../components/home/Login.vue'
 import Signup from '../components/home/Signup.vue'
 import Terms from '../components/home/Terms.vue'
 import ForgotPassword from '../components/home/ForgotPassword.vue'
-import Comments from '../components/comments/Comments.vue'
-import PostDetails from '../components/posts/SinglePostDetails.vue'
+import Profile from '../components/home/Profile.vue'
+import Comments from '../components/comments/CommentDetails.vue'
+import PostDetails from '../components/posts/PostDetails.vue'
 
 
 Vue.use(VueRouter);
@@ -26,23 +27,24 @@ var routes = [
       component: Home,
       name:'home',
       meta: { requiresAuth: true },
-      children: [
-        {
-          // Comments Component will be rendered inside Home <router-view>
-          // when /comments is matched
-          path: '/comments',
-          component: Comments,
-          name:'comments',
-        },
-        {
-          // Comments Component will be rendered inside Home <router-view>
-          // when /comments is matched
-          path: '/post',
-          component: PostDetails,
-          name:'postDetails',
-        },
-      ]
+      // children: [
+      //   {
+      //     // Comments Component will be rendered inside Home <router-view>
+      //     // when /comments is matched
+      //     path: '/comments',
+      //     component: Comments,
+      //     name:'comments',
+      //   },
+      //   {
+      //     //Comments Component will be rendered inside Home <router-view>
+      //     //when /comments is matched
+      //     path: '/post-details',
+      //     component: PostDetails,
+      //     name:'postDetails',
+      //   },
+      // ]
     },
+
     {
       path: '/signup',
       component: Signup,
@@ -57,6 +59,11 @@ var routes = [
       path: '/forgot-password',
       component: ForgotPassword,
       name:'forogotPassword'
+    },
+    {
+      path: '/profile',
+      component: Profile,
+      name:'profile',
     },
 ]
 

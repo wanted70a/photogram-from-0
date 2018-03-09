@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="b-login">
       <form class="b-login__form" @submit.prevent = 'onSubmit'>
-          <div class="b-login__form__fiels">
+          <div class="b-login__form__field">
               <input type="text" placeholder="email" v-model='email'>
           </div>
-          <div class="b-login__form__fiels">
+          <div class="b-login__form__field">
               <input type="text" placeholder="passwod" v-model='password'>
           </div>
           <button type="submit">Login</button>
@@ -31,7 +31,7 @@ export default {
 
     methods:{
         onSubmit(){
-            let params = {email:this.email, password:this.password}
+            let params = { email:this.email, password:this.password }
             this.$store.dispatch(LOGIN_AUTH, params)
         }
     }

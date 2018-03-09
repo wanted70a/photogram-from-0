@@ -38,8 +38,6 @@ const actions = {
         api.post(LOGIN, payload )
         .then( res => {
             commit(SET_TOKEN, res.data.token );
-            let headers = api.authHeader();
-            dispatch( FETCH_POSTS, headers);
             router.push({ name: 'home' });
         })
     }

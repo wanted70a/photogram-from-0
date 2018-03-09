@@ -66,52 +66,6 @@
 
     }
 
-    &__comments{
-        @include breakpoint(tablet){
-
-        }
-        @include breakpoint(desktop){
-            margin-top:2rem;
-        }
-
-        &__comment{
-            @include breakpoint(tablet){
-
-            }
-            @include breakpoint(desktop){
-                display: flex;
-                flex-flow: row nowrap;
-                margin-bottom: 1.5rem;
-            }
-            &__img{
-                width: 3rem;
-
-                & img{
-                    //max-width: none;
-                    width: 100%;
-                }
-            }
-
-            &__text{
-                width:calc(100% - 3rem);
-                margin-left:2rem;
-                margin-top: 0.9rem;
-                @include breakpoint(tablet){
-
-                }
-                @include breakpoint(desktop){
-                    width:calc(100% - 3rem);
-                    margin-left:2rem;
-                    margin-top: 0.9rem;
-                }
-            }
-        }
-    }
-
-    &__comments__cta{
-
-    }
-
     &__slider-controls{
         display: none;
         color:white;

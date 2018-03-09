@@ -1,0 +1,28 @@
+.b-comments-details{
+    position: fixed;
+    top:5%;
+    padding: 4rem 2rem;
+    width:100%;
+    height: 100vh;
+    //height:100vh;
+    background: rgba(0,0,0,0.8);
+    @include breakpoint(tablet){
+
+    }
+
+    @include breakpoint(desktop){
+
+    }
+
+    &__inner{
+        width:50%;
+        position: relative;
+        margin:0 auto;
+        background: white;
+        padding: 2rem 4rem;
+        color:gray;
+        max-height: 45rem;
+        overflow: auto;
+    }
+
+}

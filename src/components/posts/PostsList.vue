@@ -1,9 +1,11 @@
 <template lang="html">
-    <div class="b-posts-list__inner">
-        <div v-if='getIsLoading'>
-            LOADING...
+    <div class="b-posts-list">
+        <div class="b-posts-list__inner">
+            <div v-if='getIsLoading'>
+                LOADING...
+            </div>
+            <app-single-post v-else  v-for='post in getPostsObject.posts' :post='post' :key='post.key'></app-single-post>
         </div>
-        <app-single-post v-for='post in getPostsArr' :post='post' :key='post.id'></app-single-post>
     </div>
 </template>
 
@@ -28,7 +30,7 @@ export default {
         console.log('mounted');
         console.log(this.getPostsArr);
         console.log(this.getPostsObject);
-    }
+    },
 }
 </script>
 
