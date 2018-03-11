@@ -1,7 +1,7 @@
 <template lang="html">
     <!-- <router-link :to="{ name: 'home'}" tag='div' class='b-post-details'> -->
-    <div class='b-post-details' @click='updatePostDetailsState( false )'>
-        <app-single-post  :post='getPostObject.post' :comments='getPostObject.post.comments'></app-single-post>
+    <div class='b-post-details' @click='hidePostDetails( )'>
+        <app-single-post  :post='getCurrentPost' :comments='getCurrentPost.comments'></app-single-post>
     </div>
     <!-- </router-link> -->
 </template>
@@ -9,8 +9,7 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
-import { UPDATE_POST_DETAILS_STATE } from '../../store/modules/actions.types'
+import { UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types'
 import SinglePost from './SinglePost.vue'
 export default {
     data(){
@@ -22,13 +21,14 @@ export default {
         'app-single-post':SinglePost
     },
     methods:{
-        ...mapActions([
-            UPDATE_POST_DETAILS_STATE,
-        ])
+      hidePostDetails( ){
+          this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
+          this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
+      },
     },
     computed:{
         ...mapGetters([
-            'getPostObject'
+            'getCurrentPost',
         ])
     },
 }

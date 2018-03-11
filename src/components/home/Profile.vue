@@ -2,7 +2,7 @@
     <div class="">
         <app-header></app-header>
         <app-user-info :userInfo='getLogedUser'></app-user-info>
-        <app-posts-list :postsList='getPostsArr'></app-posts-list>
+        <!-- <app-posts-list :postsList='getPostsArr'></app-posts-list> -->
         <app-post-details v-if='getPostDetailsState'></app-post-details>
         <app-comment-details v-if='getCommentsDetailsState'></app-comment-details>
     </div>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import PostsList from '../posts/PostsList.vue'
+// import PostsList from '../posts/PostsList.vue'
 import Header from './Header.vue'
 import UserInfo from '../user/UserInfo.vue'
 import PostDetails from '../posts/PostDetails.vue'
@@ -23,7 +23,7 @@ import { FETCH_USER_POSTS } from '../../store/modules/actions.types.js'
 
 export default {
     components:{
-        'app-posts-list':         PostsList,
+        // 'app-posts-list':         PostsList,
         'app-header':             Header,
         'app-user-info':          UserInfo,
         'app-post-details':       PostDetails,

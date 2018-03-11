@@ -3,7 +3,7 @@
         <app-header></app-header>
         <router-view></router-view>
         <div class="b-posts-list__inner">
-            <app-single-post v-for='post in getPostsObject.posts' :post='post' :comments='post.comments.slice(0,3)'></app-single-post>
+            <app-single-post v-for='post in getPosts.list' :post='post' :comments='post.comments.slice(0,3)' ></app-single-post>
         </div>
         <app-post-details v-if='getPostDetailsState'></app-post-details>
         <app-comment-details v-if='getCommentsDetailsState'></app-comment-details>
@@ -31,26 +31,21 @@ export default {
 
     computed:{
         ...mapGetters([
-            'getToken',
-            'getPostsObject',
-            'getPostsArr',
+            //'getToken',
+            'getPosts',
+            'getComments',
             'getPostDetailsState',
             'getCommentsDetailsState'
         ])
     },
 
     methods:{
-        ...mapActions([
-            FETCH_POSTS,
-            UPDATE_LOGED_USER
-        ]),
+
     },
 
     beforeCreate(){
-        let headers = api.authHeader();
-        console.log(headers);
-        this.$store.dispatch( FETCH_POSTS, headers );
-        this.$store.dispatch( UPDATE_LOGED_USER, headers );
+      this.$store.dispatch( FETCH_POSTS );
+      //this.$store.dispatch( UPDATE_LOGED_USER, headers );
     },
 }
 </script>

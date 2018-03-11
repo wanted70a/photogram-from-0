@@ -1,10 +1,11 @@
 //export CONSTS with mutations names
-export const SET_POSTS_ARR                  = 'setPostsArr';
+export const SET_POSTS                      = 'setPosts';
 export const SET_POSTS_OBJ                  = 'setPostsObject';
 export const SET_TOKEN                      = 'setToken';
 export const SET_LOADING                    = 'loading';
 export const SET_DEFAULT_COMMENTS           = 'setDefaultComments';
 export const SET_CURRENT_POST               = 'setCurrentPost';
+export const SET_CURRENT_POST_ID            = 'setCurrentPostId';
 export const SET_CURRENT_COMMENT            = 'setCurrentComment';
 export const SET_LOGED_USER                 = 'setLogedUser';
 export const SET_CACHED_COMMENTS            = 'setCachedComments';

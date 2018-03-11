@@ -2,7 +2,7 @@
 export const ROOT           =      'http://54.37.227.57:80'
 export const API_URL        =      ROOT +       '/api'
 export const LOGIN          =      API_URL +    '/auth/login'
-export const POSTS          =      API_URL +    '/posts?amount=16&page=1'
+export const POSTS          =      API_URL +    '/posts'
 export const POSTS_TEST     =      API_URL +    '/posts/test?amount=10&page=1'
 export const IMG            =      ROOT +       '/storage/'
 export const USER           =      API_URL +    '/users/auth'

@@ -8,7 +8,7 @@
             <h3 class='mo-post__avatar__name'>{{post.username}}</h3>
         </div>
 
-        <div class="mo-post__media" @click='showPostDetails( post.id )'>
+        <div class="mo-post__media" @click='showPostDetails( post )'>
             <img v-if="post.type_id == 1" :src='IMG + post.media.medium' alt="">
             <div class="" v-else>
                 <video :src="IMG + post.media" autoplay poster="posterimage.jpg"></video>
@@ -26,8 +26,6 @@
             <div class="b-comments-list">
                 <app-single-comment v-if='comments' v-for='comment in comments' :comment='comment'></app-single-comment>
             </div>
-            <!-- <app-comments-list v-if=' post.comments && !getPostDetailsState' :comments='post.comments.slice(0,3)'></app-comments-list>
-            <app-comments-list v-else :comments='post.comments'></app-comments-list> -->
         </div>
 
         <div class="mo-post__comments__cta">
@@ -50,8 +48,7 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
-import {  UPDATE_CURRENT_POST, UPDATE_CACHED_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types'
+import {  UPDATE_CURRENT_POST_ID, UPDATE_CACHED_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types'
 import SingleComment from '../comments/SingleComment.vue'
 import AddComment from '../comments/AddComment.vue'
 export default {
@@ -61,42 +58,31 @@ export default {
         }
     },
     methods:{
-        ...mapActions([
-            UPDATE_CACHED_COMMENTS,
-            UPDATE_CURRENT_POST,
-            UPDATE_POST_DETAILS_STATE,
-            UPDATE_COMMENTS_DETAILS_STATE,
-        ]),
-
-        showPostDetails( id ){
-            this.updateCurrentPost( id );
-            this.updateCommentsDetailsState( false );
-            this.updatePostDetailsState( true );
+        showPostDetails( post ){
+            this.$store.dispatch( UPDATE_CURRENT_POST_ID, post.id  );
+            this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
+            this.$store.dispatch( UPDATE_POST_DETAILS_STATE, true  );
 
         },
         showPostComments( id ){
-            this.updateCurrentPost( id );
-            this.updatePostDetailsState( false );
-            this.updateCommentsDetailsState( true );
+            //this.updateCurrentPost( id );
+            this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, true  );
+            this.$store.dispatch(UPDATE_POST_DETAILS_STATE, false  );
         },
         nextPost( id ){
-            let postId = 'post'+(id - 1);
-
-            if(this.getPostsObject.lastPostId === id){
+            if( this.getLastPostId === id){
                 return;
-            }else if( this.getPostsObject.posts.hasOwnProperty( postId )){
-                this.$store.dispatch(UPDATE_CURRENT_POST, id-1)
+            }else if( this.getPostsObj.hasOwnProperty( id-1 ) ){
+                this.$store.dispatch( UPDATE_CURRENT_POST_ID, id-1 )
             }else{
-                this.nextPost( id-1)
+                this.nextPost( id-1 )
             }
         },
         prevPost( id ){
-            let postId = 'post'+(id + 1);
-
-            if(this.getPostsObject.firstPostId === id){
+            if( this.getFirstPostId === id){
                 return;
-            }else if( this.getPostsObject.posts.hasOwnProperty( postId )){
-                this.$store.dispatch(UPDATE_CURRENT_POST, id+1)
+            }else if( this.getPostsObj.hasOwnProperty( id+1 ) ){
+                this.$store.dispatch( UPDATE_CURRENT_POST_ID, id+1 )
             }else{
                 this.prevPost( id+1 )
             }
@@ -105,10 +91,10 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'getPostsObject',
-            'getPostObject',
-            'getCurrentPostId',
             'getPostDetailsState',
+            'getPostsObj',
+            'getFirstPostId',
+            'getLastPostId',
         ]),
     },
     components:{
