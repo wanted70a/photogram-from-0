@@ -4,7 +4,8 @@
         <div class="b-comments-details__inner" @click.stop=''>
             <!-- <app-comments-list :comments='getPostComments'></app-comments-list> -->
             <div class="b-comments-list">
-                <app-single-comment v-for='comment in getCurrentPost.comments.default' :comment='comment'></app-single-comment>
+              <p>KOMENTARIIIII</p>
+                <app-single-comment v-for='comment in getCurrentPost.comments' :comment='comment'></app-single-comment>
             </div>
             <div class="mo-post__comments__load-more">
                 <button type="button" class='btn btn--load-more' v-if='getLoadMoreState' @click='updateCommentsData()'>LOAD MORE</button>

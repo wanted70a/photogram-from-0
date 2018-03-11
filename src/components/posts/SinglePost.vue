@@ -8,7 +8,7 @@
             <h3 class='mo-post__avatar__name'>{{post.username}}</h3>
         </div>
 
-        <div class="mo-post__media" @click='showPostDetails( post )'>
+        <div class="mo-post__media" @click='showPostDetails( post.id )'>
             <img v-if="post.type_id == 1" :src='IMG + post.media.medium' alt="">
             <div class="" v-else>
                 <video :src="IMG + post.media" autoplay poster="posterimage.jpg"></video>
@@ -58,16 +58,16 @@ export default {
         }
     },
     methods:{
-        showPostDetails( post ){
-            this.$store.dispatch( UPDATE_CURRENT_POST_ID, post.id  );
+        showPostDetails( id ){
+            this.$store.dispatch( UPDATE_CURRENT_POST_ID, id  );
             this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
             this.$store.dispatch( UPDATE_POST_DETAILS_STATE, true  );
 
         },
         showPostComments( id ){
-            //this.updateCurrentPost( id );
+            this.$store.dispatch( UPDATE_CURRENT_POST_ID, id  );
             this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, true  );
-            this.$store.dispatch(UPDATE_POST_DETAILS_STATE, false  );
+            this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
         },
         nextPost( id ){
             if( this.getLastPostId === id){
