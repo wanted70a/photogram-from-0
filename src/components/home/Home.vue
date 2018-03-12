@@ -3,7 +3,7 @@
         <app-header></app-header>
         <router-view></router-view>
         <div class="b-posts-list__inner">
-            <app-single-post v-for='post in getPosts.list' :post='post' :comments='post.comments.slice(0,3)' ></app-single-post>
+            <app-single-post v-for='( post, index ) in getPosts.list' :post='post' :index='index' :comments='post.comments.slice(0,3)' ></app-single-post>
         </div>
         <app-post-details v-if='getPostDetailsState'></app-post-details>
         <app-comment-details v-if='getCommentsDetailsState'></app-comment-details>
@@ -12,8 +12,8 @@
 
 <script>
 import { FETCH_POSTS, UPDATE_LOGED_USER } from '../../store/modules/actions.types.js'
-import  api from '../../api/api.js'
-import { mapActions } from 'vuex'
+//import  api from '../../api/api.js'
+//import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 
 import SinglePost from '../posts/SinglePost.vue'
@@ -31,9 +31,7 @@ export default {
 
     computed:{
         ...mapGetters([
-            //'getToken',
             'getPosts',
-            'getComments',
             'getPostDetailsState',
             'getCommentsDetailsState'
         ])

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { API_URL, LOGIN, POSTS } from './endpoints'
+import { API_URL, LOGIN, POSTS, USER_AUTH, COMMENTS } from './endpoints'
 
 Vue.use(VueAxios, axios)
 Vue.axios.defaults.baseURL = API_URL
@@ -10,17 +10,17 @@ Vue.axios.defaults.baseURL = API_URL
 
 const api = {
 
-  get( url, params ) {
+  get( url, config ) {
     return Vue.axios
-      .get(url, params)
+      .get( url, config )
       .catch((error) => {
         console.log(error);
       })
   },
 
-  post (url, params, headers) {
+  post (url, config ) {
     return Vue.axios
-      .post(url, params, headers)
+      .post( url, config )
       .catch((error) => {
         console.log(error);
       })
@@ -65,10 +65,9 @@ const api = {
 
   authHeader(){
       let token     = window.localStorage.token;
-      let headers   = { headers: {
+      let headers   = {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + token
-        }
       };
       return headers;
   }
@@ -78,7 +77,35 @@ const api = {
 export default api;
 
 export const PostsService = {
-  get( params ){
-    return api.get( POSTS, params )
+  get( data ){
+    let config = {};
+    config.headers = api.authHeader();
+    config.params  = data;
+    return api.get( POSTS, config )
   }
-}
+};
+
+export const AuthService = {
+    login( data ){
+        return api.post( LOGIN, data )
+    },
+
+    userInfo(){
+        let config = {};
+        config.headers = api.authHeader();
+        return api.get( USER_AUTH, config )
+    }
+
+};
+
+export const CommentsService = {
+    getById( data ){
+        let config = {};
+        config.headers = api.authHeader();
+        config.params  = data;
+        return api.get( COMMENTS, config );
+    }
+};
+export const UserService = {
+
+};

@@ -32,7 +32,7 @@ export default {
     methods:{
         onSubmit(){
             let params = { email:this.email, password:this.password }
-            this.$store.dispatch(LOGIN_AUTH, params)
+            this.$store.dispatch( LOGIN_AUTH, params )
         }
     }
 

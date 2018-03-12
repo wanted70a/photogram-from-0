@@ -2,7 +2,6 @@
     <div class="b-comments-list">
         <app-single-comment  v-for='(comment, index) in comments' :comment='comment' :key='comment.id'></app-single-comment>
     </div>
-
 </template>
 
 <script>

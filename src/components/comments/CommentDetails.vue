@@ -4,11 +4,10 @@
         <div class="b-comments-details__inner" @click.stop=''>
             <!-- <app-comments-list :comments='getPostComments'></app-comments-list> -->
             <div class="b-comments-list">
-              <p>KOMENTARIIIII</p>
                 <app-single-comment v-for='comment in getCurrentPost.comments' :comment='comment'></app-single-comment>
             </div>
             <div class="mo-post__comments__load-more">
-                <button type="button" class='btn btn--load-more' v-if='getLoadMoreState' @click='updateCommentsData()'>LOAD MORE</button>
+                <button type="button" class='btn btn--load-more' v-if='true' @click='updateCommentsData( )'>LOAD MORE</button>
                 <p v-else >ALL COMMENTS LOADED</p>
             </div>
             <app-add-comment></app-add-comment>
@@ -21,8 +20,8 @@
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { IMG } from '../../api/endpoints'
-import { CLEAR_CACHED_COMMENTS, LOAD_MORE_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types.js'
-import  api from '../../api/api.js'
+import { CLEAR_CACHED_COMMENTS, UPDATE_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types.js'
+//import  { CommentsService } from '../../api/api.js'
 import SingleComment from './SingleComment.vue'
 import AddComment from './AddComment.vue'
 
@@ -39,7 +38,7 @@ export default {
         ]),
 
         updateCommentsData(){
-            this.$store.dispatch( LOAD_MORE_COMMENTS );
+            this.$store.dispatch( UPDATE_COMMENTS, this.getCurrentindex );
         },
 
         clearCachedComments( ){
@@ -49,7 +48,7 @@ export default {
     computed:{
         ...mapGetters([
             'getPostComments',
-            'getPostsObject',
+            'getCurrentIndex',
             'getCurrentPostId',
             'getCurrentPost',
             'getLoadMoreState'

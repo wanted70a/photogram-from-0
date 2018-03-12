@@ -1,5 +1,6 @@
 <template lang="html">
 <header class='b-header'>
+    HEADER
     <nav class="b-header__navigation">
         <router-link class='b-header__navigation-link' to="/home">
             <i class='b-header__icon'>HP</i>

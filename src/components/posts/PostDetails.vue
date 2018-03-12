@@ -1,7 +1,7 @@
 <template lang="html">
     <!-- <router-link :to="{ name: 'home'}" tag='div' class='b-post-details'> -->
     <div class='b-post-details' @click='hidePostDetails( )'>
-        <app-single-post  :post='getCurrentPost' :comments='getCurrentPost.comments'></app-single-post>
+        <app-single-post  :post='getCurrentPost' :index='getCurrentIndex' :comments='getCurrentPost.comments.slice(0,5)'></app-single-post>
     </div>
     <!-- </router-link> -->
 </template>
@@ -29,6 +29,7 @@ export default {
     computed:{
         ...mapGetters([
             'getCurrentPost',
+            'getCurrentIndex',
         ])
     },
 }

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { PostsService } from '../../api/api' //import api-request actions
+import { PostsService, CommentsService } from '../../api/api' //import api-request actions
 import { POSTS, USER, COMMENTS } from '../../api/endpoints'
 import router from '../../router/router.js'
 
@@ -9,9 +9,9 @@ import {
   FETCH_COMMENTS,
   UPDATE_POSTS_OBJ,
   UPDATE_CURRENT_POST,
-  UPDATE_CURRENT_POST_ID,
+  UPDATE_CURRENT_POST_INDEX,
   UPDATE_LOGED_USER,
-  UPDATE_CACHED_COMMENTS,
+  UPDATE_COMMENTS,
   LOAD_MORE_COMMENTS,
   CLEAR_CACHED_COMMENTS,
   FETCH_USER_POSTS,
@@ -27,9 +27,9 @@ import {
   SET_LOADING,
   SET_LOAD_MORE_COMMENTS,
   SET_CURRENT_POST,
-  SET_CURRENT_POST_ID,
+  SET_CURRENT_POST_INDEX,
   SET_LOGED_USER,
-  SET_DEFAULT_COMMENTS,
+  SET_COMMENTS,
   SET_CACHED_COMMENTS,
   RESET_DEFAULT_COMMENTS,
   SET_USER_POSTS,
@@ -44,9 +44,8 @@ const state = {
 
   posts:{
     list:[],
-    currentId:'',
-    firstPostId:'',
-    lastPostId:'',
+    currentIndex:'',
+    lastIndex:'',
     detailsState:false,
     requestAmount:1
   },
@@ -64,54 +63,23 @@ const state = {
 
   isLoading:'',
 
-  logedUser:{
-    info:{
-      about:'',
-      email:'',
-      followers_count:'',
-      following_count:'',
-      gender_id:'',
-      id:'',
-      image:{},
-      name:"",
-      phone:"",
-      posts_count:'',
-      username:"",
-    },
-    posts:[]
-  },
-
 };
 
 const getters = {
   getPosts( state ){
     return state.posts;
   },
-  getPostsObj( state ){
-      let temp = {};
-      state.posts.list.map( post => {
-        temp[ post.id ] = post;
-      });
-      return temp;
+
+  getCurrentPost( state ){
+    return state.posts.list[ state.posts.currentIndex ];
   },
 
-  getCurrentPost( state, getters ){
-    return getters.getPostsObj[state.posts.currentId]
+  getCurrentIndex( state ){
+    return state.posts.currentIndex;
   },
 
-  getFirstPostId( state ){
-    return state.posts.list[0].id
-  },
-  getLastPostId( state ){
-    return state.posts.list[ state.posts.list.length - 1 ].id
-  },
-
-  getComments( state ){
-      let temp = {};
-      state.posts.list.map( post => {
-        temp[ post.id ] = post.comments;
-      });
-      return temp;
+  getLastIndex( state ){
+    return state.posts.list.length - 1;
   },
 
   getPostDetailsState( state ){
@@ -128,8 +96,11 @@ const mutations = {
   [SET_POSTS]( state, payload ){
     state.posts.list = payload;
   },
-  [SET_CURRENT_POST_ID]( state, payload ){
-    state.posts.currentId = payload;
+  [SET_COMMENTS]( state, payload ){
+    state.posts.list[payload.index] = payload.data;
+  },
+  [SET_CURRENT_POST_INDEX]( state, index ){
+    state.posts.currentIndex = index;
   },
   [SET_POST_DETAILS_STATE]( state, status){
     state.posts.detailsState = status
@@ -141,13 +112,14 @@ const mutations = {
 
 const actions = {
     [FETCH_POSTS]( { commit } ){
-        PostsService.get( { params:{ amount:30, page:1, token:window.localStorage.token } } )
+        //PostsService.get( { params:{ amount:30, page:1, token:window.localStorage.token } } )
+        PostsService.get( { amount:30, page:1 }  )
         .then( res => {
-          commit( SET_POSTS, res.data.data, 'list')
+          commit( SET_POSTS, res.data.data )
         })
     },
-    [UPDATE_CURRENT_POST_ID]( { commit }, payload ){
-      commit( SET_CURRENT_POST_ID, payload)
+    [UPDATE_CURRENT_POST_INDEX]( { commit }, index ){
+      commit( SET_CURRENT_POST_INDEX, index)
     },
     [UPDATE_POST_DETAILS_STATE]( { commit }, status ){
       commit( SET_POST_DETAILS_STATE, status)
@@ -155,6 +127,13 @@ const actions = {
     [UPDATE_COMMENTS_DETAILS_STATE]( { commit }, status ){
       commit( SET_COMMENTS_DETAILS_STATE, status)
     },
+    [UPDATE_COMMENTS]( { commit, state }, index ){
+        CommentsService.getById( { post_id:state.posts.list[ index ], amount:30, page:1 }  )
+        .then( res => {
+            console.log(res);
+          //commit( SET_COMMENTS, {res.data.data } )
+        })
+    }
 };
 
 export default {
