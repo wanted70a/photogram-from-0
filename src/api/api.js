@@ -99,7 +99,7 @@ export const AuthService = {
 };
 
 export const CommentsService = {
-    getById( data ){
+    get( data ){
         let config = {};
         config.headers = api.authHeader();
         config.params  = data;

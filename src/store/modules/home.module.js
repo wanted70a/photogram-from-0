@@ -74,6 +74,10 @@ const getters = {
     return state.posts.list[ state.posts.currentIndex ];
   },
 
+  getCurrentComments( state ){
+      return state.comments.list;
+  },
+
   getCurrentIndex( state ){
     return state.posts.currentIndex;
   },
@@ -97,7 +101,7 @@ const mutations = {
     state.posts.list = payload;
   },
   [SET_COMMENTS]( state, payload ){
-    state.posts.list[payload.index] = payload.data;
+    state.comments.list = payload.data;
   },
   [SET_CURRENT_POST_INDEX]( state, index ){
     state.posts.currentIndex = index;
@@ -118,6 +122,12 @@ const actions = {
           commit( SET_POSTS, res.data.data )
         })
     },
+    [FETCH_COMMENTS]( { commit, getters }, payload ){
+        return CommentsService.get( { post_id:payload.postId, amount:30, page:1 }  )
+        .then( res => {
+            commit( SET_COMMENTS, { index:getters.currentIndex, data:res.data.data } )
+         });
+    },
     [UPDATE_CURRENT_POST_INDEX]( { commit }, index ){
       commit( SET_CURRENT_POST_INDEX, index)
     },
@@ -127,13 +137,6 @@ const actions = {
     [UPDATE_COMMENTS_DETAILS_STATE]( { commit }, status ){
       commit( SET_COMMENTS_DETAILS_STATE, status)
     },
-    [UPDATE_COMMENTS]( { commit, state }, index ){
-        CommentsService.getById( { post_id:state.posts.list[ index ], amount:30, page:1 }  )
-        .then( res => {
-            console.log(res);
-          //commit( SET_COMMENTS, {res.data.data } )
-        })
-    }
 };
 
 export default {
