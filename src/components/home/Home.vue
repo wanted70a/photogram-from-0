@@ -3,7 +3,7 @@
         <app-header></app-header>
         <router-view></router-view>
         <div class="b-posts-list__inner">
-            <app-single-post v-for='( post, index ) in getPosts.list' :post='post' :index='index' :comments='post.comments.slice(0,3)' ></app-single-post>
+            <app-single-post v-for='( post, index ) in getPosts.list' :post='post' :index='index' :comments='post.comments.slice(0,3)' :key="post.id"></app-single-post>
         </div>
         <app-post-details v-if='getPostDetailsState'></app-post-details>
         <app-comment-details v-if='getCommentsDetailsState'></app-comment-details>

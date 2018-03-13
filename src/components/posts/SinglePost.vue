@@ -24,7 +24,7 @@
 
         <div class="mo-post__comments">
             <div class="b-comments-list">
-                <app-single-comment v-if='comments' v-for='comment in comments' :comment='comment'></app-single-comment>
+                <app-single-comment v-if='comments' v-for='comment in comments' :comment='comment' :key='comment.id'></app-single-comment>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import {  UPDATE_CURRENT_POST_INDEX, UPDATE_CACHED_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types'
+import {  UPDATE_CURRENT_POST_INDEX, UPDATE_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types'
 import SingleComment from '../comments/SingleComment.vue'
 import AddComment from '../comments/AddComment.vue'
 export default {
@@ -68,6 +68,7 @@ export default {
             this.$store.dispatch( UPDATE_CURRENT_POST_INDEX, index  );
             this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, true  );
             this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
+            this.$store.dispatch( UPDATE_COMMENTS, this.getCurrentPost.comments  );
         },
         nextPost( index ){
             if( index === this.getLastIndex ){
@@ -89,6 +90,7 @@ export default {
         ...mapGetters([
             'getPostDetailsState',
             'getPosts',
+            'getCurrentPost',
             'getLastIndex',
         ]),
     },

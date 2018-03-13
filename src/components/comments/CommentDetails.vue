@@ -1,8 +1,8 @@
 <template lang="html">
-    <div class="b-comments-details" @click='updateCommentsDetailsState( false )'>
+    <div class="b-comments-details" @click='hidePostDetails()'>
         <div class="b-comments-details__inner" @click.stop=''>
             <div class="b-comments-list">
-                <app-single-comment v-for='comment in getCurrentComments' :comment='comment'></app-single-comment>
+                <app-single-comment v-for='comment in getCurrentComments' :comment='comment' :key='comment.id'></app-single-comment>
             </div>
             <div class="mo-post__comments__load-more">
                 <button type="button" class='btn btn--load-more' v-if='true' @click='updateCommentsData()'>LOAD MORE</button>
@@ -18,7 +18,7 @@
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { IMG } from '../../api/endpoints'
-import { FETCH_COMMENTS, UPDATE_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE } from '../../store/modules/actions.types.js'
+import { FETCH_COMMENTS, CLEAR_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_POST_DETAILS_STATE } from '../../store/modules/actions.types.js'
 //import  { CommentsService } from '../../api/api.js'
 import SingleComment from './SingleComment.vue'
 import AddComment from './AddComment.vue'
@@ -30,24 +30,22 @@ export default {
             IMG:IMG,
         }
     },
+
     methods:{
-        ...mapActions([
-            UPDATE_COMMENTS_DETAILS_STATE,
-        ]),
+          hidePostDetails( ){
+              this.$store.dispatch( CLEAR_COMMENTS );
+              this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
+              this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
+          },
 
-        updateCommentsData(){
-          console.log(this.getCurrentPost);
-            this.$store.dispatch( FETCH_COMMENTS, { postId:this.getCurrentPost.id } );
-        },
+          updateCommentsData(){
+            this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id );
+          },
+      },
 
-        clearCachedComments( ){
-            this.$store.dispatch( CLEAR_CACHED_COMMENTS, '' );
-        }
-    },
     computed:{
         ...mapGetters([
             'getCurrentComments',
-            'getCurrentIndex',
             'getCurrentPost',
             'getLoadMoreState'
         ])

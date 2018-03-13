@@ -13,7 +13,7 @@ import {
   UPDATE_LOGED_USER,
   UPDATE_COMMENTS,
   LOAD_MORE_COMMENTS,
-  CLEAR_CACHED_COMMENTS,
+  CLEAR_COMMENTS,
   FETCH_USER_POSTS,
   UPDATE_POST_DETAILS_STATE,
   UPDATE_COMMENTS_DETAILS_STATE,
@@ -56,7 +56,7 @@ const state = {
       loadMore:true,
       visible:false,
       amount:5,
-      page:2,
+      page:1,
       detailsState:false,
       loadMoreComments:'true',
   },
@@ -101,7 +101,14 @@ const mutations = {
     state.posts.list = payload;
   },
   [SET_COMMENTS]( state, payload ){
-    state.comments.list = payload.data;
+    if( payload ){
+        state.comments.list = [ ...state.comments.list,...payload ];
+        state.comments.page ++;
+    }else{
+        state.comments.list = [];
+        state.comments.page = 1;
+        state.comments.loadMoreComments = true;
+    }
   },
   [SET_CURRENT_POST_INDEX]( state, index ){
     state.posts.currentIndex = index;
@@ -116,17 +123,20 @@ const mutations = {
 
 const actions = {
     [FETCH_POSTS]( { commit } ){
-        //PostsService.get( { params:{ amount:30, page:1, token:window.localStorage.token } } )
         PostsService.get( { amount:30, page:1 }  )
         .then( res => {
           commit( SET_POSTS, res.data.data )
         })
     },
-    [FETCH_COMMENTS]( { commit, getters }, payload ){
-        return CommentsService.get( { post_id:payload.postId, amount:30, page:1 }  )
-        .then( res => {
-            commit( SET_COMMENTS, { index:getters.currentIndex, data:res.data.data } )
-         });
+    [FETCH_COMMENTS]( { commit, state, getters }, id ){
+        if( getters.getCurrentPost.comments_count != state.comments.list.length ){
+            return CommentsService.get( { post_id:id, amount:state.comments.amount, page:state.comments.page }  )
+            .then( res => {
+                commit( SET_COMMENTS, res.data.data )
+             });
+        }else{
+            state.comments.loadMoreComments = true;
+        }
     },
     [UPDATE_CURRENT_POST_INDEX]( { commit }, index ){
       commit( SET_CURRENT_POST_INDEX, index)
@@ -137,6 +147,12 @@ const actions = {
     [UPDATE_COMMENTS_DETAILS_STATE]( { commit }, status ){
       commit( SET_COMMENTS_DETAILS_STATE, status)
     },
+    [CLEAR_COMMENTS]( { commit } ){
+        commit( SET_COMMENTS, false );
+    },
+    [UPDATE_COMMENTS]( { commit }, data ){
+        commit( SET_COMMENTS, data );
+    }
 };
 
 export default {

@@ -1,6 +1,5 @@
 <template lang="html">
 <header class='b-header'>
-    HEADER
     <nav class="b-header__navigation">
         <router-link class='b-header__navigation-link' to="/home">
             <i class='b-header__icon'>HP</i>
@@ -8,7 +7,7 @@
 
         <router-link class='b-header__navigation-link' to="/profile" @click.native='goToProfilePage()'>
             <div class='b-header__icon'>
-                <img :src="IMG + getLogedUser.image.profile" alt="">
+                <!-- <img :src="IMG + getLogedUser.info.image.profile" alt=""> -->
             </div>
         </router-link>
 
