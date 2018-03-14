@@ -40,26 +40,26 @@ import {
 
 
 const state = {
-  test:'',
-
   posts:{
     list:[],
-    currentIndex:'',
+    index:'',
     lastIndex:'',
     detailsState:false,
-    requestAmount:1
+    rqstAmount:20,
+    page:1,
+    comments:{
+        list:[],//for current Comments to be fetched
+        cached:[],
+        current:{},
+        loadMore:true,
+        visible:false,
+        rqstAmount:5,
+        page:1,
+        detailsState:false,
+        loadMoreComments:'true',
+    }
   },
 
-  comments:{
-      list:[],
-      cached:[],
-      loadMore:true,
-      visible:false,
-      amount:5,
-      page:1,
-      detailsState:false,
-      loadMoreComments:'true',
-  },
 
   isLoading:'',
 
@@ -67,23 +67,23 @@ const state = {
 
 const getters = {
   getPosts( state ){
-    return state.posts;
+    return state.posts.list;
   },
 
-  getCurrentPost( state ){
-    return state.posts.list[ state.posts.currentIndex ];
-  },
-
-  getCurrentComments( state ){
-      return state.comments.list;
-  },
-
-  getCurrentIndex( state ){
-    return state.posts.currentIndex;
+  getIndex( state ){
+    return state.posts.index;
   },
 
   getLastIndex( state ){
     return state.posts.list.length - 1;
+  },
+
+  getCurrentPost( state ){
+    return state.posts.list[ state.posts.index ];
+  },
+
+  getCurrentComments( state ){
+      return state.posts.list[ state.posts.index ].comments;
   },
 
   getPostDetailsState( state ){
@@ -91,7 +91,7 @@ const getters = {
   },
 
   getCommentsDetailsState( state ){
-    return state.comments.detailsState;
+    return state.posts.comments.detailsState;
   },
 
 };
