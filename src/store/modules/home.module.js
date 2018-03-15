@@ -83,7 +83,7 @@ const getters = {
   },
 
   getCurrentComments( state ){
-      return state.posts.list[ state.posts.index ].comments;
+      return 1//state.posts.list[ state.posts.index ].comments;
   },
 
   getPostDetailsState( state ){
@@ -111,13 +111,13 @@ const mutations = {
     }
   },
   [SET_CURRENT_POST_INDEX]( state, index ){
-    state.posts.currentIndex = index;
+    state.posts.index = index;
   },
   [SET_POST_DETAILS_STATE]( state, status){
     state.posts.detailsState = status
   },
   [SET_COMMENTS_DETAILS_STATE]( state, status){
-    state.comments.detailsState = status
+    state.posts.comments.detailsState = status
   },
 };
 

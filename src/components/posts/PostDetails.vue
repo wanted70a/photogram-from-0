@@ -1,6 +1,6 @@
 <template lang="html">
     <div class='b-post-details' @click.prevent='hidePostDetails()'>
-        <app-single-post  :post='getCurrentPost' :index='getCurrentIndex' :comments='getCurrentPost.comments.slice(0,5)'></app-single-post>
+        <app-single-post  :post='getCurrentPost' :index='getIndex' :comments='getCurrentComments.slice(0,5)'></app-single-post>
     </div>
 </template>
 
@@ -28,7 +28,8 @@ export default {
     computed:{
         ...mapGetters([
             'getCurrentPost',
-            'getCurrentIndex',
+            'getCurrentComments',
+            'getIndex',
         ])
     },
 }

@@ -11,7 +11,7 @@
         <div class="mo-post__media" @click='showPostDetails( index )'>
             <img v-if="post.type_id == 1" :src='IMG + post.media.medium' alt="">
             <div class="" v-else>
-                <video :src="IMG + post.media" autoplay poster="posterimage.jpg"></video>
+                <video :src="IMG + post.media"  :poster="IMG + post.thumbnail"></video>
             </div>
         </div>
 
