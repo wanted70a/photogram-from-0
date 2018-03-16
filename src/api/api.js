@@ -82,6 +82,11 @@ export const PostsService = {
     config.headers = api.authHeader();
     config.params  = data;
     return api.get( POSTS, config )
+  },
+  getById( id ){
+      let config = {};
+      config.headers = api.authHeader();
+      return api.get( `${POSTS}/${id}`, config )
   }
 };
 

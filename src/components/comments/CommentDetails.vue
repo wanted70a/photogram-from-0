@@ -18,7 +18,7 @@
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { IMG } from '../../api/endpoints'
-import { FETCH_COMMENTS, CLEAR_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_POST_DETAILS_STATE } from '../../store/modules/actions.types.js'
+import { FETCH_COMMENTS, CLEAR_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_POST_DETAILS_STATE, UPDATE_POST_BY_ID } from '../../store/modules/actions.types.js'
 //import  { CommentsService } from '../../api/api.js'
 import SingleComment from './SingleComment.vue'
 import AddComment from './AddComment.vue'
@@ -33,7 +33,7 @@ export default {
 
     methods:{
           hidePostDetails( ){
-              this.$store.dispatch( CLEAR_COMMENTS );
+              //this.$store.dispatch( CLEAR_COMMENTS );
               this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
               this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
           },
@@ -47,7 +47,8 @@ export default {
         ...mapGetters([
             'getCurrentComments',
             'getCurrentPost',
-            'getLoadMoreState'
+            'getLoadMoreState',
+            'getIndex'
         ])
     },
 

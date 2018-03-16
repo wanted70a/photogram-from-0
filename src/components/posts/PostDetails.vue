@@ -1,6 +1,6 @@
 <template lang="html">
     <div class='b-post-details' @click.prevent='hidePostDetails()'>
-        <app-single-post  :post='getCurrentPost' :index='getIndex' :comments='getCurrentComments.slice(0,5)'></app-single-post>
+        <app-single-post  :post='getCurrentPost' :index='getIndex' :comments='getCurrentPost.comments.slice(0,5)'></app-single-post>
     </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     },
     methods:{
       hidePostDetails( ){
-          this.$store.dispatch( CLEAR_COMMENTS );
+          //this.$store.dispatch( CLEAR_COMMENTS );
           this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
           this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
       },

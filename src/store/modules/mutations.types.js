@@ -1,5 +1,6 @@
 //export CONSTS with mutations names
 export const SET_POSTS                      = 'setPosts';
+export const SET_POST_BY_ID                 = 'setPostById';
 export const SET_POSTS_OBJ                  = 'setPostsObject';
 export const SET_TOKEN                      = 'setToken';
 export const SET_LOADING                    = 'loading';

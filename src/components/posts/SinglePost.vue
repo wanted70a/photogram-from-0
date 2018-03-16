@@ -59,6 +59,7 @@ export default {
     },
     methods:{
         showPostDetails( index ){
+            console.log('DETAILS');
             this.$store.dispatch( UPDATE_CURRENT_POST_INDEX, index  );
             this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
             this.$store.dispatch( UPDATE_POST_DETAILS_STATE, true  );
