@@ -87,7 +87,6 @@ const getters = {
   },
 
   getCurrentComments( state, getters ){
-    //return state.comments.list
     if (getters.getCurrentPost) {
         return getters.getCurrentPost['comments'];
     }
@@ -112,10 +111,12 @@ const mutations = {
   },
   [SET_COMMENTS]( state, payload ){
     if( payload ){
-        state.comments.list = [ ...state.comments.list,...payload ];
+        let current = state.posts.list[ state.posts.index ].comments;
+        console.log( current );
+        state.posts.list[ state.posts.index ].comments = [ ...current,...payload ];
         state.comments.page ++;
     }else{
-        state.comments.list = [];
+        curent = curent.slice(0,5);
         state.comments.page = 1;
         state.comments.loadMoreComments = true;
     }
@@ -139,20 +140,17 @@ const actions = {
         })
     },
     [FETCH_POST_BY_ID]( { commit }, id ){
-        PostsService.getById( id )
-        .then( res => {
-            console.log( res );
-          //commit( SET_POSTS, res.data.data )
-        })
+        return PostsService.getById( id )
+        // .then( res => {
+        //     console.log( res );
+        //   //commit( SET_POSTS, res.data.data )
+        // })
     },
     [UPDATE_POST_BY_ID]( { commit }, payload ){
         commit( SET_POST_BY_ID, payload );
     },
     [FETCH_COMMENTS]( { commit, state, getters }, id ){
         return CommentsService.get( { post_id:id, amount:state.comments.rqstAmount, page:state.comments.page }  )
-        // .then( res => {
-        //     commit( SET_COMMENTS, res.data.data )
-        //  });
 },
     [UPDATE_CURRENT_POST_INDEX]( { commit }, index ){
       commit( SET_CURRENT_POST_INDEX, index)

@@ -69,7 +69,7 @@ export default {
             this.$store.dispatch( UPDATE_CURRENT_POST_INDEX, index  );
             this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, true  );
             this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
-            this.$store.dispatch( UPDATE_COMMENTS, this.getCurrentPost.comments  );
+            //wthis.$store.dispatch( UPDATE_COMMENTS, this.getCurrentPost.comments  );
         },
         nextPost( index ){
             if( index === this.getLastIndex ){

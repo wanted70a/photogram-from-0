@@ -11,14 +11,13 @@
             <app-add-comment></app-add-comment>
         </div>
     </div>
-    <!-- </router-link> -->
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { IMG } from '../../api/endpoints'
-import { FETCH_COMMENTS, CLEAR_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_POST_DETAILS_STATE, UPDATE_POST_BY_ID } from '../../store/modules/actions.types.js'
+import { FETCH_COMMENTS, CLEAR_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_POST_DETAILS_STATE, UPDATE_POST_BY_ID, FETCH_POST_BY_ID, UPDATE_COMMENTS } from '../../store/modules/actions.types.js'
 //import  { CommentsService } from '../../api/api.js'
 import SingleComment from './SingleComment.vue'
 import AddComment from './AddComment.vue'
@@ -39,7 +38,14 @@ export default {
           },
 
           updateCommentsData(){
-            this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id );
+            this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
+            .then( res => {
+                this.$store.dispatch( UPDATE_COMMENTS, { name:1 } )
+            })
+            // this.$store.dispatch( FETCH_POST_BY_ID, this.getCurrentPost.id )
+            // .then( res => {
+            //     this.$store.dispatch( UPDATE_POST_BY_ID, { index:this.getIndex, data:res.data.data }  );
+            // })
           },
       },
 
