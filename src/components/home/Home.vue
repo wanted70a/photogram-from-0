@@ -11,9 +11,7 @@
 </template>
 
 <script>
-import { FETCH_POSTS, UPDATE_LOGED_USER } from '../../store/modules/actions.types.js'
-//import  api from '../../api/api.js'
-//import { mapActions } from 'vuex'
+import { FETCH_POSTS, UPDATE_LOGED_USER, UPDATE_POSTS } from '../../store/modules/actions.types.js'
 import { mapGetters } from 'vuex'
 
 import SinglePost from '../posts/SinglePost.vue'
@@ -42,7 +40,10 @@ export default {
     },
 
     beforeCreate(){
-      this.$store.dispatch( FETCH_POSTS );
+      this.$store.dispatch( FETCH_POSTS )
+      .then( res => {
+          this.$store.dispatch( UPDATE_POSTS, res.data.data )
+      })
       //this.$store.dispatch( UPDATE_LOGED_USER, headers );
     },
 }

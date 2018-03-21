@@ -18,9 +18,9 @@ const api = {
       })
   },
 
-  post (url, config ) {
+  post (url, data, headers ) {
     return Vue.axios
-      .post( url, config )
+      .post( url, data, headers )
       .catch((error) => {
         console.log(error);
       })
@@ -72,6 +72,13 @@ export const CommentsService = {
         config.headers = api.authHeader();
         config.params  = data;
         return api.get( COMMENTS, config );
+    },
+
+    post( params ){
+        let headers = api.authHeader();
+        let data  = params;
+        console.log( data );
+        return api.post( COMMENTS,  data,  { headers:headers } );
     }
 };
 export const UserService = {

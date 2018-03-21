@@ -7,34 +7,31 @@ import {
   //import names for actions
   FETCH_POSTS,
   FETCH_POST_BY_ID,
-  UPDATE_POST_BY_ID,
+  UPDATE_POST_BY_INDX,
   FETCH_COMMENTS,
-  UPDATE_POSTS_OBJ,
-  UPDATE_CURRENT_POST,
+  POST_NEW_COMMENT,
+  UPDATE_POSTS,
   UPDATE_CURRENT_POST_INDEX,
-  UPDATE_LOGED_USER,
   UPDATE_COMMENTS,
-  LOAD_MORE_COMMENTS,
+  REFRES_COMMENTS,
+  UPDATE_COMMENTS_RQST_PAGE,
   CLEAR_COMMENTS,
   FETCH_USER_POSTS,
   UPDATE_POST_DETAILS_STATE,
   UPDATE_COMMENTS_DETAILS_STATE,
-  POST_NEW_COMMENT
 } from './actions.types'
 
 import {
   //import names for mutations
   SET_POSTS,
-  SET_POST_BY_ID,
-  SET_POSTS_OBJ,
-  SET_LOADING,
-  SET_LOAD_MORE_COMMENTS,
+  SET_POST_BY_INDX,
   SET_CURRENT_POST,
   SET_CURRENT_POST_INDEX,
-  SET_LOGED_USER,
+  SET_LOADING,
+  SET_LOAD_MORE_COMMENTS,
   SET_COMMENTS,
-  SET_CACHED_COMMENTS,
-  RESET_DEFAULT_COMMENTS,
+  PUSH_COMMENTS,
+  SET_COMMENTS_RQST_PAGE,
   SET_USER_POSTS,
   SET_POST_DETAILS_STATE,
   SET_COMMENTS_DETAILS_STATE,
@@ -48,15 +45,11 @@ const state = {
     index:0,
     lastIndex:'',
     detailsState:false,
-    rqstAmount:20,
+    rqstAmount:30,
     page:1,
   },
 
   comments:{
-      list:[],//for current Comments to be fetched
-      cached:[],
-      current:{},
-      loadMore:true,
       visible:false,
       rqstAmount:5,
       page:1,
@@ -70,56 +63,51 @@ const state = {
 };
 
 const getters = {
+  //posts
   getPosts( state ){
     return state.posts.list;
   },
-
   getIndex( state ){
     return state.posts.index;
   },
-
   getLastIndex( state ){
     return state.posts.list.length - 1;
   },
-
   getCurrentPost( state ){
     return state.posts.list[ state.posts.index ];
   },
+  getPostDetailsState( state ){
+    return state.posts.detailsState;
+  },
 
+  //comments
   getCurrentComments( state, getters ){
     if (getters.getCurrentPost) {
         return getters.getCurrentPost['comments'];
     }
   },
-
-  getPostDetailsState( state ){
-    return state.posts.detailsState;
+  getLoadMoreCommentsState( state, getters ){
+      if (getters.getCurrentPost) {
+          return getters.getCurrentPost.comments_count > getters.getCurrentComments.length;
+      }
   },
-
   getCommentsDetailsState( state ){
     return state.comments.detailsState;
+  },
+  getCommentsPage( state ){
+    return state.comments.page;
   },
 
 };
 
 const mutations = {
+  //posts
   [SET_POSTS]( state, payload ){
     state.posts.list = payload;
   },
-  [SET_POST_BY_ID]( state, payload ){
+  [SET_POST_BY_INDX]( state, payload ){
+    //!payload is Obj with 2 paramas  index and data
     state.posts.list[ payload.index ] = payload.data;
-  },
-  [SET_COMMENTS]( state, payload ){
-    if( payload ){
-        let current = state.posts.list[ state.posts.index ].comments;
-        console.log( current );
-        state.posts.list[ state.posts.index ].comments = [ ...current,...payload ];
-        state.comments.page ++;
-    }else{
-        curent = curent.slice(0,5);
-        state.comments.page = 1;
-        state.comments.loadMoreComments = true;
-    }
   },
   [SET_CURRENT_POST_INDEX]( state, index ){
     state.posts.index = index;
@@ -127,45 +115,69 @@ const mutations = {
   [SET_POST_DETAILS_STATE]( state, status){
     state.posts.detailsState = status
   },
+
+  //comments
+  [SET_COMMENTS]( state, payload ){
+       state.posts.list[ state.posts.index ].comments = payload;
+  },
+
+  [PUSH_COMMENTS]( state, payload ){
+    let current = state.posts.list[ state.posts.index ].comments;
+    state.posts.list[ state.posts.index ].comments = [ ...current,...payload ];
+   },
+
   [SET_COMMENTS_DETAILS_STATE]( state, status){
     state.comments.detailsState = status
+  },
+
+  [SET_COMMENTS_RQST_PAGE]( state, payload){
+    state.comments.page = payload;
   },
 };
 
 const actions = {
+    //posts
     [FETCH_POSTS]( { commit } ){
-        PostsService.get( { amount:30, page:1 }  )
-        .then( res => {
-          commit( SET_POSTS, res.data.data )
-        })
+        return PostsService.get( { amount:state.posts.rqstAmount, page:state.posts.page }  )
+
     },
     [FETCH_POST_BY_ID]( { commit }, id ){
         return PostsService.getById( id )
-        // .then( res => {
-        //     console.log( res );
-        //   //commit( SET_POSTS, res.data.data )
-        // })
     },
-    [UPDATE_POST_BY_ID]( { commit }, payload ){
-        commit( SET_POST_BY_ID, payload );
+    [UPDATE_POSTS]( { commit }, payload ){
+        commit(SET_POSTS, payload )
     },
-    [FETCH_COMMENTS]( { commit, state, getters }, id ){
-        return CommentsService.get( { post_id:id, amount:state.comments.rqstAmount, page:state.comments.page }  )
-},
+    [UPDATE_POST_BY_INDX]( { commit }, payload ){
+        //!payload is Obj with 2 paramas  data and index
+        commit( SET_POST_BY_INDX, payload );
+    },
     [UPDATE_CURRENT_POST_INDEX]( { commit }, index ){
       commit( SET_CURRENT_POST_INDEX, index)
     },
     [UPDATE_POST_DETAILS_STATE]( { commit }, status ){
       commit( SET_POST_DETAILS_STATE, status)
     },
+
+    //comments
+    [FETCH_COMMENTS]( { commit, dispatch, state }, id ){
+        return CommentsService.get( { post_id:id, amount:state.comments.rqstAmount, page:state.comments.page }  )
+    },
     [UPDATE_COMMENTS_DETAILS_STATE]( { commit }, status ){
       commit( SET_COMMENTS_DETAILS_STATE, status)
     },
-    [CLEAR_COMMENTS]( { commit } ){
-        commit( SET_COMMENTS, false );
+    [POST_NEW_COMMENT]( { commit }, payload ){
+        return CommentsService.post( payload );
     },
+
     [UPDATE_COMMENTS]( { commit }, data ){
+        commit( PUSH_COMMENTS, data );
+    },
+
+    [REFRES_COMMENTS]( { commit }, data ){
         commit( SET_COMMENTS, data );
+    },
+    [UPDATE_COMMENTS_RQST_PAGE]( { commit }, payload ){
+        commit( SET_COMMENTS_RQST_PAGE, payload );
     }
 };
 

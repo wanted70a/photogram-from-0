@@ -5,7 +5,7 @@
                 <app-single-comment v-for='comment in getCurrentComments' :comment='comment' :key='comment.id'></app-single-comment>
             </div>
             <div class="mo-post__comments__load-more">
-                <button type="button" class='btn btn--load-more' v-if='true' @click='updateCommentsData()'>LOAD MORE</button>
+                <button type="button" class='btn btn--load-more' v-if='getLoadMoreCommentsState' @click='LoadMoreComments()'>LOAD MORE</button>
                 <p v-else >ALL COMMENTS LOADED</p>
             </div>
             <app-add-comment></app-add-comment>
@@ -17,7 +17,7 @@
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { IMG } from '../../api/endpoints'
-import { FETCH_COMMENTS, CLEAR_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_POST_DETAILS_STATE, UPDATE_POST_BY_ID, FETCH_POST_BY_ID, UPDATE_COMMENTS } from '../../store/modules/actions.types.js'
+import { FETCH_COMMENTS, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_COMMENTS_RQST_PAGE, UPDATE_POST_DETAILS_STATE, UPDATE_POST_BY_ID, FETCH_POST_BY_ID, UPDATE_COMMENTS, REFRES_COMMENTS } from '../../store/modules/actions.types.js'
 //import  { CommentsService } from '../../api/api.js'
 import SingleComment from './SingleComment.vue'
 import AddComment from './AddComment.vue'
@@ -32,29 +32,30 @@ export default {
 
     methods:{
           hidePostDetails( ){
-              //this.$store.dispatch( CLEAR_COMMENTS );
+              this.$store.dispatch( UPDATE_COMMENTS_RQST_PAGE, 1 );
               this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
               this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
+              this.$store.dispatch( REFRES_COMMENTS, this.getCurrentComments.slice(0,5) );
           },
 
-          updateCommentsData(){
-            this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
-            .then( res => {
-                this.$store.dispatch( UPDATE_COMMENTS, { name:1 } )
-            })
-            // this.$store.dispatch( FETCH_POST_BY_ID, this.getCurrentPost.id )
-            // .then( res => {
-            //     this.$store.dispatch( UPDATE_POST_BY_ID, { index:this.getIndex, data:res.data.data }  );
-            // })
+          LoadMoreComments(){
+              if ( this.getLoadMoreCommentsState ) {
+                  this.$store.dispatch( UPDATE_COMMENTS_RQST_PAGE, ( this.getCommentsPage + 1 )  )
+                  this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
+                      .then( res => {
+                          this.$store.dispatch( UPDATE_COMMENTS, res.data.data )
+                  })
+              }
           },
       },
 
     computed:{
         ...mapGetters([
             'getCurrentComments',
+            'getCommentsPage',
+            'getLoadMoreCommentsState',
             'getCurrentPost',
-            'getLoadMoreState',
-            'getIndex'
+            'getIndex',
         ])
     },
 

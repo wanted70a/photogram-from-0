@@ -12,29 +12,32 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
-import {  UPDATE_CURRENT_POST, UPDATE_CACHED_COMMENTS , POST_NEW_COMMENT} from '../../store/modules/actions.types'
+import {  FETCH_POST_BY_ID, UPDATE_POST_BY_INDX, UPDATE_COMMENTS , POST_NEW_COMMENT, FETCH_COMMENTS, REFRES_COMMENTS } from '../../store/modules/actions.types'
 export default {
     data(){
         return {
             IMG:IMG,
-            commentBody:''
+            commentBody:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum '
         }
     },
     methods:{
-        ...mapActions([
-            UPDATE_CURRENT_POST,
-            POST_NEW_COMMENT
-        ]),
         addComment(){
-            let params = { post_id:this.getCurrentPostId, body:this.commentBody }
+            console.log(this.getCurrentPost.id);
+            let params = { post_id:this.getCurrentPost.id, body:this.commentBody }
             this.$store.dispatch( POST_NEW_COMMENT, params )
+            .then( res => {
+                this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
+                    .then( res => {
+                        this.$store.dispatch( REFRES_COMMENTS, res.data.data )
+                })
+            })
         }
     },
 
     computed:{
         ...mapGetters([
-            'getCurrentPostId',
+            'getCurrentPost',
+            'getIndex'
         ])
     },
 
