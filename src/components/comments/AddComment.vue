@@ -17,12 +17,11 @@ export default {
     data(){
         return {
             IMG:IMG,
-            commentBody:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum '
+            commentBody:''
         }
     },
     methods:{
         addComment(){
-            console.log(this.getCurrentPost.id);
             let params = { post_id:this.getCurrentPost.id, body:this.commentBody }
             this.$store.dispatch( POST_NEW_COMMENT, params )
             .then( res => {
@@ -31,6 +30,7 @@ export default {
                         this.$store.dispatch( REFRES_COMMENTS, res.data.data )
                 })
             })
+            this.commentBody = '';
         }
     },
 

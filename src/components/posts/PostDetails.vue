@@ -20,7 +20,6 @@ export default {
     },
     methods:{
       hidePostDetails( ){
-          //this.$store.dispatch( CLEAR_COMMENTS );
           this.$store.dispatch( UPDATE_COMMENTS_DETAILS_STATE, false  );
           this.$store.dispatch( UPDATE_POST_DETAILS_STATE, false  );
       },

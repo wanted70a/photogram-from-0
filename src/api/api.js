@@ -77,7 +77,6 @@ export const CommentsService = {
     post( params ){
         let headers = api.authHeader();
         let data  = params;
-        console.log( data );
         return api.post( COMMENTS,  data,  { headers:headers } );
     }
 };
