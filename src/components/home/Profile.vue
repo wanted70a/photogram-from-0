@@ -1,29 +1,30 @@
 <template lang="html">
     <div class="">
         <app-header></app-header>
-        <app-user-info :userInfo='getLogedUser'></app-user-info>
-        <!-- <app-posts-list :postsList='getPostsArr'></app-posts-list> -->
+        <app-user-info></app-user-info>
+        {{$route.params.id}}
+        <div class="b-posts-list__inner">
+            <app-single-post v-for='( post, index ) in getPosts' :post='post' :index='index' :comments='post.comments.slice(0,3)' :key="post.id"></app-single-post>
+        </div>
         <app-post-details v-if='getPostDetailsState'></app-post-details>
         <app-comment-details v-if='getCommentsDetailsState'></app-comment-details>
     </div>
-
 </template>
 
 <script>
-// import PostsList from '../posts/PostsList.vue'
+import SinglePost from '../posts/SinglePost.vue'
 import Header from './Header.vue'
 import UserInfo from '../user/UserInfo.vue'
 import PostDetails from '../posts/PostDetails.vue'
 import CommentDetails from '../comments/CommentDetails.vue'
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
 import { IMG } from '../../api/endpoints'
 import  api from '../../api/api.js'
-import { FETCH_USER_POSTS } from '../../store/modules/actions.types.js'
+import { UPDATE_POSTS, FETCH_POSTS_BY_USER_ID, FETCH_USER_BY_ID } from '../../store/modules/actions.types.js'
 
 export default {
     components:{
-        // 'app-posts-list':         PostsList,
+        'app-single-post':        SinglePost,
         'app-header':             Header,
         'app-user-info':          UserInfo,
         'app-post-details':       PostDetails,
@@ -32,25 +33,34 @@ export default {
 
     computed:{
         ...mapGetters([
+            'getPosts',
+            'getUser',
             'getLogedUser',
-            'getPostsArr',
             'getPostDetailsState',
             'getCommentsDetailsState'
         ])
     },
 
     methods:{
-        ...mapActions([
-            FETCH_USER_POSTS,
-        ]),
+        loadData( id ){
+            this.$store.dispatch( FETCH_POSTS_BY_USER_ID, id )
+            .then( res => {
+                this.$store.dispatch( UPDATE_POSTS, res.data.data )
+            });
+            this.$store.dispatch( FETCH_USER_BY_ID, id )
+
+        }
+    },
+    watch: {
+        '$route.params.id': function (newId, oldId) {
+            this.loadData( newId );
+         }
     },
 
-    // beforeCreate(){
-    //     let headers = api.authHeader();
-    //     console.log(headers);
-    //     this.$store.dispatch( FETCH_USER_POSTS, headers );
-    //     //this.$store.dispatch( UPDATE_LOGED_USER, headers );
-    // },
+    created() {
+        let id = this.$route.params.id;
+        this.loadData( id );
+    },
 }
 </script>
 

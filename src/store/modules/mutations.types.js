@@ -13,6 +13,7 @@ export const SET_LOGED_USER                 = 'setLogedUser';
 export const SET_CACHED_COMMENTS            = 'setCachedComments';
 export const RESET_DEFAULT_COMMENTS         = 'resetDefaultComments';
 export const SET_LOAD_MORE_COMMENTS         = 'setLoadMoreComments';
+export const SET_USER                       = 'setUser';
 export const SET_USER_POSTS                 = 'setUserPosts';
 export const SET_POST_DETAILS_STATE         = 'setPostDetailsState';
 export const SET_COMMENTS_DETAILS_STATE     = 'setCommentsDetailsState';

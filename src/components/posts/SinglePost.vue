@@ -2,9 +2,9 @@
 <div class="mo-post">
     <div class="mo-post-inner" @click.stop=''>
         <div class="mo-post__avatar">
-            <div class="mo-post__avatar__profile-picture">
+            <router-link :to="{ name: 'profile', params: { id:post.user_id } }" tag='div' class="mo-post__avatar__profile-picture">
                 <img :src='IMG + post.user_image.avatar'  alt="">
-            </div>
+            </router-link>
             <h3 class='mo-post__avatar__name'>{{post.username}}</h3>
         </div>
 
@@ -94,8 +94,8 @@ export default {
         ]),
     },
     components:{
-        'app-single-comment':SingleComment,
-        'app-add-comment'  :AddComment,
+        'app-single-comment':   SingleComment,
+        'app-add-comment':      AddComment,
     },
     props:['post', 'index', 'comments']
 }

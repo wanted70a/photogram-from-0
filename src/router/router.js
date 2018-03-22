@@ -27,22 +27,6 @@ var routes = [
       component: Home,
       name:'home',
       meta: { requiresAuth: true },
-      // children: [
-      //   {
-      //     // Comments Component will be rendered inside Home <router-view>
-      //     // when /comments is matched
-      //     path: '/comments',
-      //     component: Comments,
-      //     name:'comments',
-      //   },
-      //   {
-      //     //Comments Component will be rendered inside Home <router-view>
-      //     //when /comments is matched
-      //     path: '/post-details',
-      //     component: PostDetails,
-      //     name:'postDetails',
-      //   },
-      // ]
     },
 
     {
@@ -61,7 +45,7 @@ var routes = [
       name:'forogotPassword'
     },
     {
-      path: '/profile',
+      path: '/profile/:id',
       component: Profile,
       name:'profile',
     },

@@ -5,7 +5,7 @@
             <i class='b-header__icon'>HP</i>
         </router-link>
 
-        <router-link class='b-header__navigation-link' to="/profile" @click.native='goToProfilePage()'>
+        <router-link :to="{ name: 'profile', params: { id:getLogedUser.info.id } }"  class="b-header__navigation-link">
             <div class='b-header__icon'>
                 <!-- <img :src="IMG + getLogedUser.info.image.profile" alt=""> -->
             </div>
@@ -47,10 +47,7 @@ export default {
         }
     },
     methods:{
-        goToProfilePage(){
-            let headers = api.authHeader();
-            this.$store.dispatch( FETCH_USER_POSTS, headers );
-        }
+    
     },
     computed:{
         ...mapGetters([

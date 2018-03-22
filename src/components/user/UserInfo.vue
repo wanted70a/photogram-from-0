@@ -3,19 +3,19 @@
       <div class="c-user-info">
           <div class="c-user-info__avatar">
               <div class="c-user-info__name">
-                  <h2>{{getLogedUser.name}}</h2>
+                  <h2>{{getUser.info.name}}</h2>
               </div>
               <div class="c-user-info__media">
                   <img src="" alt="">
               </div>
           </div>
           <div class="c-user-info__stats">
-              <p>POSTS: {{getLogedUser.posts_count}}</p>
-              <p>FOLLOWERS: {{getLogedUser.followers_count}}</p>
-              <p>FOLLOWING: {{getLogedUser.following_count}}</p>
+              <p>POSTS: {{getUser.info.posts_count}}</p>
+              <p>FOLLOWERS: {{getUser.info.followers_count}}</p>
+              <p>FOLLOWING: {{getUser.info.following_count}}</p>
           </div>
           <div class="c-user-info__about">
-              <p>{{getLogedUser.about}}</p>
+              <p>{{getUser.info.about}}</p>
           </div>
           <div class="c-user-info__edit">
               <button type="button" class='btn btn--edit-profile'>EDTI PROFILE</button>
@@ -27,7 +27,6 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
 
 
 export default {
@@ -38,7 +37,7 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'getLogedUser'
+            'getUser'
         ])
     }
     //props:['userInfo']

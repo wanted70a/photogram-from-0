@@ -1,9 +1,11 @@
 //export CONSTS with action names
 export const FETCH_POSTS                     = 'fetchPosts';
 export const FETCH_POST_BY_ID                = 'fetchPostById';
+export const FETCH_POSTS_BY_USER_ID          = 'fetchPostByUserId';
 export const UPDATE_POST_BY_INDX             = 'updatePostByIndex';
 export const UPDATE_POSTS                    = 'updatePosts';
 export const FETCH_USER_POSTS                = 'fetchUserPosts';
+export const FETCH_USER_BY_ID                 = 'fetchUserById';
 export const UPDATE_POSTS_OBJ                = 'updatePostsObj';
 export const LOGIN_AUTH                      = 'loginAuth';
 export const UPDATE_CURRENT_POST_INDEX       = 'updateCurrentIndex';

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { API_URL, LOGIN, POSTS, USER_AUTH, COMMENTS } from './endpoints'
+import { API_URL, LOGIN, POSTS, USER, USER_AUTH, COMMENTS } from './endpoints'
 
 Vue.use(VueAxios, axios)
 Vue.axios.defaults.baseURL = API_URL
@@ -50,6 +50,12 @@ export const PostsService = {
       let config = {};
       config.headers = api.authHeader();
       return api.get( `${POSTS}/${id}`, config )
+  },
+  getByUserId( data ){
+      let config = {};
+      config.headers = api.authHeader();
+      config.params  = data;
+      return api.get( POSTS, config )
   }
 };
 
@@ -81,5 +87,9 @@ export const CommentsService = {
     }
 };
 export const UserService = {
-
+    getById( id ){
+        let config = {};
+        config.headers = api.authHeader();
+        return api.get( `${USER}/?id=${id}`, config );
+    }
 };

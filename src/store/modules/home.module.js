@@ -7,6 +7,7 @@ import {
   //import names for actions
   FETCH_POSTS,
   FETCH_POST_BY_ID,
+  FETCH_POSTS_BY_USER_ID,
   UPDATE_POST_BY_INDX,
   FETCH_COMMENTS,
   POST_NEW_COMMENT,
@@ -143,6 +144,9 @@ const actions = {
     },
     [FETCH_POST_BY_ID]( { commit }, id ){
         return PostsService.getById( id )
+    },
+    [FETCH_POSTS_BY_USER_ID]( { commit }, userId ){
+        return PostsService.getByUserId( { amount:state.posts.rqstAmount, page:state.posts.page, user_id:userId } )
     },
     [UPDATE_POSTS]( { commit }, payload ){
         commit(SET_POSTS, payload )

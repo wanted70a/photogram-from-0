@@ -1,17 +1,18 @@
 import Vue from 'vue'
-import { AuthService } from '../../api/api'
-import { LOGIN } from '../../api/endpoints'
+import { AuthService, UserService } from '../../api/api'
 import router from '../../router/router.js'
 
 import {
     //MUTATION NAMES
     SET_TOKEN,
     SET_LOGED_USER,
+    SET_USER,
 } from './mutations.types'
 
 import {
     //ACTIONS NAMES
     LOGIN_AUTH,
+    FETCH_USER_BY_ID,
 } from  './actions.types'
 
 
@@ -29,9 +30,24 @@ const state = {
         phone:"",
         posts_count:'',
         username:"",
-      },
-      posts:[]
+      }
     },
+
+    user:{
+        info:{
+            about:'',
+            email:'',
+            followers_count:'',
+            following_count:'',
+            gender_id:'',
+            id:'',
+            image:{},
+            name:"",
+            phone:"",
+            posts_count:'',
+            username:"",
+        },
+    }
 }
 
 const getters = {
@@ -39,8 +55,15 @@ const getters = {
         return window.localStorage.token;
     },
 
+    getUser( state ){
+        return state.user;
+    },
     getLogedUser( state ){
         return state.logedUser;
+    },
+
+    getMyId( stae ){
+        return state.logedUser.info.id
     }
 };
 
@@ -53,6 +76,9 @@ const mutations = {
         .then( res => {
             state.logedUser.info = res.data.data;
         })
+    },
+    [SET_USER]( state, data ){
+        state.user.info = data;
     }
 };
 
@@ -64,6 +90,12 @@ const actions = {
             commit( SET_TOKEN, res.data.token );
             commit( SET_LOGED_USER );
             router.push({ name: 'home' });
+        });
+    },
+    [FETCH_USER_BY_ID]( { commit }, id ){
+        return UserService.getById( id )
+        .then( res => {
+            commit( SET_USER, res.data.data )
         })
     }
 };
