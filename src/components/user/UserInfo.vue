@@ -17,7 +17,7 @@
           <div class="c-user-info__about">
               <p>{{getUser.info.about}}</p>
           </div>
-          <div class="c-user-info__edit">
+          <div v-if=" getUser.info.id == getMyId" class="c-user-info__edit">
               <button type="button" class='btn btn--edit-profile'>EDTI PROFILE</button>
           </div>
       </div>
@@ -37,7 +37,8 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'getUser'
+            'getUser',
+            'getMyId'
         ])
     }
     //props:['userInfo']
