@@ -5,6 +5,7 @@ export const SET_POSTS_OBJ                  = 'setPostsObject';
 export const SET_TOKEN                      = 'setToken';
 export const SET_LOADING                    = 'loading';
 export const SET_COMMENTS                   = 'setComments';
+export const SET_EDIT_COMMENTS_STATE        = 'setEditCommentsState';
 export const PUSH_COMMENTS                  = 'pushComments';
 export const SET_CURRENT_POST               = 'setCurrentPost';
 export const SET_CURRENT_POST_INDEX         = 'setCurrentPostIndex';

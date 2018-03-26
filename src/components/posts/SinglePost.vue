@@ -24,7 +24,7 @@
 
         <div class="mo-post__comments">
             <div class="b-comments-list">
-                <app-single-comment v-if='comments' v-for='comment in comments' :comment='comment' :key='comment.id'></app-single-comment>
+                <app-single-comment v-if='comments' v-for='comment in comments' :comment='comment' :postIndex='index' :key='comment.id'></app-single-comment>
             </div>
         </div>
 

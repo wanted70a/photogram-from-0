@@ -26,6 +26,13 @@ const api = {
       })
   },
 
+  patch (url, data, headers ) {
+    return Vue.axios
+      .patch( url, data, headers )
+      .catch((error) => {
+        console.log(error);
+      })
+  },
   authHeader(){
       let token     = window.localStorage.token;
       let headers   = {
@@ -84,7 +91,14 @@ export const CommentsService = {
         let headers = api.authHeader();
         let data  = params;
         return api.post( COMMENTS,  data,  { headers:headers } );
-    }
+    },
+
+    patch( params ){
+        let headers = api.authHeader();
+        let data = {};
+        data.body = params.body;
+        return api.patch( `${COMMENTS}/${params.id}`,  data,  { headers:headers } );
+    },
 };
 export const UserService = {
     getById( id ){

@@ -16,10 +16,12 @@ import {
   UPDATE_COMMENTS,
   REFRES_COMMENTS,
   UPDATE_COMMENTS_RQST_PAGE,
+  EDIT_COMMENT_BY_ID,
   CLEAR_COMMENTS,
   FETCH_USER_POSTS,
   UPDATE_POST_DETAILS_STATE,
   UPDATE_COMMENTS_DETAILS_STATE,
+  UPDATE_EDIT_COMMENTS_STATE,
 } from './actions.types'
 
 import {
@@ -36,6 +38,7 @@ import {
   SET_USER_POSTS,
   SET_POST_DETAILS_STATE,
   SET_COMMENTS_DETAILS_STATE,
+  SET_EDIT_COMMENTS_STATE,
 
 } from './mutations.types'
 
@@ -52,6 +55,7 @@ const state = {
 
   comments:{
       visible:false,
+      editState:false,
       rqstAmount:5,
       page:1,
       detailsState:false,
@@ -98,6 +102,9 @@ const getters = {
   getCommentsPage( state ){
     return state.comments.page;
   },
+  // getEditCommentsState( state ){
+  //     return state.comments.editState;
+  // }
 
 };
 
@@ -134,6 +141,9 @@ const mutations = {
   [SET_COMMENTS_RQST_PAGE]( state, payload){
     state.comments.page = payload;
   },
+  [SET_EDIT_COMMENTS_STATE]( state, bool ){
+      state.comments.editState = bool
+  }
 };
 
 const actions = {
@@ -166,6 +176,10 @@ const actions = {
     [FETCH_COMMENTS]( { commit, dispatch, state }, id ){
         return CommentsService.get( { post_id:id, amount:state.comments.rqstAmount, page:state.comments.page }  )
     },
+    [EDIT_COMMENT_BY_ID]({ commit }, payload ){
+        //!payload is Obj with 2 paramas  body and id
+        return CommentsService.patch( { id:payload.id, body:payload.body } )
+    },
     [UPDATE_COMMENTS_DETAILS_STATE]( { commit }, status ){
       commit( SET_COMMENTS_DETAILS_STATE, status)
     },
@@ -182,6 +196,10 @@ const actions = {
     },
     [UPDATE_COMMENTS_RQST_PAGE]( { commit }, payload ){
         commit( SET_COMMENTS_RQST_PAGE, payload );
+    },
+
+    [UPDATE_EDIT_COMMENTS_STATE]( { commit }, bool ){
+        commit( SET_EDIT_COMMENTS_STATE, bool );
     }
 };
 
