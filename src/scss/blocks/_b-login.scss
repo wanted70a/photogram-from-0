@@ -1,0 +1,91 @@
+.b-login{
+    & .photogram-logo{
+        margin:0 auto;
+        padding-top: 5rem;
+        text-align: center;
+        color:white;
+        font-size:4.6rem;
+        font-weight:400;
+        span{
+            font-weight:600;
+        }
+    }
+    &__background{
+        background: url(../assets/img/cover-mob.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        max-width: 100%;
+        width:100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: -1;
+
+        @include breakpoint(tablet){
+            background: url(../assets/img/cover-tab.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        @include breakpoint(desktop){
+            background: url(../assets/img/cover-desk.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
+
+    &__form{
+        margin:0 auto;
+        margin-top: 15vh;
+        width: 25%;
+        min-width:32rem;
+
+        &__signup{
+            color:white;
+            margin-top: 2rem;
+            span{
+                color:#09F3A2;
+                cursor:pointer;
+            }
+        }
+
+        &__forgotPassword{
+            position:relative;
+            top:2rem;
+            color:white;
+            cursor:pointer;
+        }
+    }
+
+    &__form__field{
+        position: relative;
+        margin-top: 5rem;
+
+        &__icon{
+            position: absolute;
+            left:5px;
+            top:-10px;
+            width:25px;
+            &__avatar{
+
+                fill:white;
+            }
+
+            &__lock{
+                fill:white;
+            }
+
+        }
+
+        & input{
+            @include font-size(16px,16px,16px);
+            padding-left:5rem;
+            padding-bottom:0.4rem;
+            color:#707070;
+            width: 100%;
+            background-color: transparent;
+            outline:none;
+            border:none;
+            border-bottom:1px solid white;
+        }
+    }
+}

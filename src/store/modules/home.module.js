@@ -21,7 +21,6 @@ import {
   FETCH_USER_POSTS,
   UPDATE_POST_DETAILS_STATE,
   UPDATE_COMMENTS_DETAILS_STATE,
-  UPDATE_EDIT_COMMENTS_STATE,
 } from './actions.types'
 
 import {
@@ -38,7 +37,6 @@ import {
   SET_USER_POSTS,
   SET_POST_DETAILS_STATE,
   SET_COMMENTS_DETAILS_STATE,
-  SET_EDIT_COMMENTS_STATE,
 
 } from './mutations.types'
 
@@ -101,11 +99,7 @@ const getters = {
   },
   getCommentsPage( state ){
     return state.comments.page;
-  },
-  // getEditCommentsState( state ){
-  //     return state.comments.editState;
-  // }
-
+  }
 };
 
 const mutations = {
@@ -141,9 +135,6 @@ const mutations = {
   [SET_COMMENTS_RQST_PAGE]( state, payload){
     state.comments.page = payload;
   },
-  [SET_EDIT_COMMENTS_STATE]( state, bool ){
-      state.comments.editState = bool
-  }
 };
 
 const actions = {
@@ -197,10 +188,6 @@ const actions = {
     [UPDATE_COMMENTS_RQST_PAGE]( { commit }, payload ){
         commit( SET_COMMENTS_RQST_PAGE, payload );
     },
-
-    [UPDATE_EDIT_COMMENTS_STATE]( { commit }, bool ){
-        commit( SET_EDIT_COMMENTS_STATE, bool );
-    }
 };
 
 export default {

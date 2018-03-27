@@ -62,6 +62,36 @@
             flex-flow: row nowrap;
             padding:1.5rem 0;
             border-bottom:1px solid silver;
+            align-items: flex-start;
+        }
+
+
+
+        &__icon{
+            stroke-width: 2.5;
+            margin-right: 2rem;
+            &--last{
+                margin-right: 0;
+                margin-left: auto;
+            }
+        }
+
+        &__like{
+            fill: rgba(0,0,0,0);
+            stroke:lightgreen;
+            width:25px;
+            height:100%;
+        }
+        &__comment{
+            fill: black;
+            width:25px;
+            height:100%;
+        }
+        &__liked{
+            fill:lightgreen;
+            width:25px;
+            height:100%;
+
         }
 
     }
@@ -70,5 +100,10 @@
         display: none;
         color:white;
         font-weight: bold;
+    }
+
+    &__comments__load-more{
+        position: absolute;
+        top:0;
     }
 }

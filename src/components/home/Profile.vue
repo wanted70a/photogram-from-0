@@ -2,7 +2,6 @@
     <div class="">
         <app-header></app-header>
         <app-user-info></app-user-info>
-        {{$route.params.id}}
         <div class="b-posts-list__inner">
             <app-single-post v-for='( post, index ) in getPosts' :post='post' :index='index' :comments='post.comments.slice(0,3)' :key="post.id"></app-single-post>
         </div>

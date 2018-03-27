@@ -15,7 +15,8 @@
     }
 
     &__inner{
-        width:50%;
+        width:60rem;
+        height: 30rem;
         position: relative;
         margin:0 auto;
         background: white;
@@ -29,5 +30,33 @@
         display: block;
     }
 
+    &__add-new{
+        position: fixed;
+        width: 60rem;
+        //height: 6rem;
+        margin-left: -4rem;
+        margin-top: 28rem;
+        background: orange;
 
+        &__form{
+
+        }
+
+        &__form__field{
+            position: relative;
+            width: 100%;
+
+            & input{
+                width: 100%;
+                height: 6rem;
+                padding-left:3rem;
+            }
+
+            & button {
+                position: absolute;
+                right: 2rem;
+                top: 1.8rem;
+            }
+        }
+    }
 }

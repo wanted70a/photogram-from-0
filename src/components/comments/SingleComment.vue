@@ -13,7 +13,7 @@
 import { IMG } from '../../api/endpoints'
 import { CommentsService } from '../../api/api'
 import { mapGetters } from 'vuex'
-import { EDIT_COMMENT_BY_ID, FETCH_COMMENTS, REFRES_COMMENTS, UPDATE_CURRENT_POST_INDEX } from '../../store/modules/actions.types'
+import { EDIT_COMMENT_BY_ID, FETCH_COMMENTS, REFRES_COMMENTS, UPDATE_CURRENT_POST_INDEX, UPDATE_COMMENTS_RQST_PAGE } from '../../store/modules/actions.types'
 
 export default {
     data(){
@@ -37,6 +37,7 @@ export default {
             }
             this.$store.dispatch( EDIT_COMMENT_BY_ID, { id:this.$props.comment.id, body:this.input } )
             .then( res => {
+                this.$store.dispatch(UPDATE_COMMENTS_RQST_PAGE, 1);
                 this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
                     .then( res => {
                         this.$store.dispatch( REFRES_COMMENTS, res.data.data )

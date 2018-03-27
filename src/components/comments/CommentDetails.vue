@@ -1,6 +1,7 @@
 <template lang="html">
     <div class="b-comments-details" @click='hidePostDetails()'>
         <div class="b-comments-details__inner" @click.stop=''>
+            <app-add-comment></app-add-comment>
             <div class="b-comments-list">
                 <app-single-comment v-for='comment in getCurrentComments' :comment='comment' :key='comment.id'></app-single-comment>
             </div>
@@ -8,7 +9,6 @@
                 <button type="button" class='btn btn--load-more' v-if='getLoadMoreCommentsState' @click='LoadMoreComments()'>LOAD MORE</button>
                 <p v-else >ALL COMMENTS LOADED</p>
             </div>
-            <app-add-comment></app-add-comment>
         </div>
     </div>
 </template>
