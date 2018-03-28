@@ -18,21 +18,26 @@ export default {
     data(){
         return {
             IMG:IMG,
-            commentBody:''
+            commentBody:'',
         }
     },
     methods:{
         addComment(){
-            let params = { post_id:this.getCurrentPost.id, body:this.commentBody }
-            this.$store.dispatch( POST_NEW_COMMENT, params )
-            .then( res => {
-                this.$store.dispatch(UPDATE_COMMENTS_RQST_PAGE, 1);
-                this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
-                    .then( res => {
-                        this.$store.dispatch( REFRES_COMMENTS, res.data.data )
+            if( this.commentBody){
+                let params = { post_id:this.getCurrentPost.id, body:this.commentBody }
+                this.$store.dispatch( POST_NEW_COMMENT, params )
+                .then( res => {
+                    this.$store.dispatch(UPDATE_COMMENTS_RQST_PAGE, 1);
+                    this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
+                        .then( res => {
+                            this.$store.dispatch( REFRES_COMMENTS, res.data.data )
+                    })
                 })
-            })
-            this.commentBody = '';
+                document.querySelector('.b-comments-details__inner').scrollTop = 0;
+                this.commentBody = '';
+            }else{
+                return
+            }
         }
     },
 

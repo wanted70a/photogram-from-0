@@ -12,7 +12,7 @@ button{
     background: #09F3A2;
     color:white;
     text-align: center;
-    @include font-size(25px,20px,25px);
+    @include font-size(22px,20px,20px);
 
     &--login{
         width: 100%;

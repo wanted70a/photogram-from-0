@@ -20,7 +20,7 @@
         </router-link>
     </nav>
     <div class="b-header__logo">
-        <h1 class="logo__white animated fadeIn"><span>Photo</span>gram</h1>
+        <h1 class="b-header__logo__white"><span>Photo</span>gram</h1>
     </div>
     <div class="b-header__utilities">
         <div class="b-header__utilities-search">
@@ -47,7 +47,7 @@ export default {
         }
     },
     methods:{
-    
+
     },
     computed:{
         ...mapGetters([

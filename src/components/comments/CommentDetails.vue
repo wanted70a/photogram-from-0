@@ -1,13 +1,16 @@
 <template lang="html">
     <div class="b-comments-details" @click='hidePostDetails()'>
-        <div class="b-comments-details__inner" @click.stop=''>
+        <transition name="fetch">
+            <div class='loader' v-if='fetching'>LOADING...</div>
+        </transition>
+        <div class="b-comments-details__inner" @click.stop='' v-on:scroll="scrollFunction">
             <app-add-comment></app-add-comment>
             <div class="b-comments-list">
                 <app-single-comment v-for='comment in getCurrentComments' :comment='comment' :key='comment.id'></app-single-comment>
             </div>
             <div class="mo-post__comments__load-more">
-                <button type="button" class='btn btn--load-more' v-if='getLoadMoreCommentsState' @click='LoadMoreComments()'>LOAD MORE</button>
-                <p v-else >ALL COMMENTS LOADED</p>
+                <!-- <button type="button" class='btn btn--load-more' v-if='getLoadMoreCommentsState' @click='loadMoreComments()'>LOAD MORE</button> -->
+                <p v-if='!getLoadMoreCommentsState' >ALL COMMENTS LOADED</p>
             </div>
         </div>
     </div>
@@ -27,6 +30,7 @@ export default {
     data(){
         return {
             IMG:IMG,
+            fetching:false,
         }
     },
 
@@ -38,15 +42,27 @@ export default {
               this.$store.dispatch( REFRES_COMMENTS, this.getCurrentComments.slice(0,5) );
           },
 
-          LoadMoreComments(){
+          loadMoreComments(){
               if ( this.getLoadMoreCommentsState ) {
+                  this.fetching = true;
                   this.$store.dispatch( UPDATE_COMMENTS_RQST_PAGE, ( this.getCommentsPage + 1 )  )
                   this.$store.dispatch( FETCH_COMMENTS, this.getCurrentPost.id )
                       .then( res => {
                           this.$store.dispatch( UPDATE_COMMENTS, res.data.data )
+                          this.fetching = false;
                   })
+
               }
           },
+
+          scrollFunction(e){
+              let containerHeight  = document.querySelector('.b-comments-details__inner').offsetHeight;
+              let top              = e.target.scrollTop;
+              let scrollHeight     = e.target.scrollHeight;
+              if( ( scrollHeight - top ) <= ( containerHeight ) ){
+                  this.loadMoreComments();
+              }
+          }
       },
 
     computed:{
@@ -76,9 +92,23 @@ export default {
         'app-single-comment':SingleComment,
         'app-add-comment': AddComment,
     },
+
+    created(){
+        document.body.style.overflow = 'hidden'
+    },
+    destroyed(){
+        document.body.style.overflow = ''
+    }
 }
 </script>
 
 <style lang="css">
-
+    .test{
+        color: red;
+        position: absolute;
+        text-align: center;
+        top: 17rem;
+        z-index: 6;
+        width: calc(100% - 30px);
+    }
 </style>

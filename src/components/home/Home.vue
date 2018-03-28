@@ -1,9 +1,11 @@
 <template lang="html">
     <div>
         <app-header></app-header>
-        <router-view></router-view>
-        <div class="b-posts-list__inner">
-            <app-single-post v-for='( post, index ) in getPosts' :post='post' :index='index' :comments='post.comments.slice(0,3)' :key="post.id"></app-single-post>
+        <!-- <router-view></router-view> -->
+        <div class="b-posts-list l">
+             <transition-group  name="card" tag="div" class="b-posts-list__inner" >
+                 <app-single-post v-for='( post, index ) in getPosts' :post='post' :index='index' :comments='post.comments.slice(0,3)' :key="post.id"></app-single-post>
+             </transition-group>
         </div>
         <app-post-details v-if='getPostDetailsState'></app-post-details>
         <app-comment-details v-if='getCommentsDetailsState'></app-comment-details>
@@ -36,7 +38,18 @@ export default {
     },
 
     methods:{
-
+        scrollFunction(e){
+            console.log('scrolllll');
+            console.log(e);
+            //let containerHeight  = document.querySelector('.b-comments-details__inner').offsetHeight;
+            let top              = e.target.scrollTop;
+            let scrollHeight     = e.target.scrollHeight;
+            console.log('t',top);
+            console.log('h',scrollHeight);
+            if( ( scrollHeight - top ) <= ( containerHeight ) ){
+                this.loadMoreComments();
+            }
+        }
     },
 
     beforeCreate(){
@@ -46,6 +59,14 @@ export default {
       })
       //this.$store.dispatch( UPDATE_LOGED_USER, headers );
     },
+
+    created: function () {
+        document.body.addEventListener('scroll', this.scrollFunction);
+        console.log(document.body);
+    },
+    destroyed: function () {
+        document.body.removeEventListener('scroll', this.scrollFunction);
+    }
 }
 </script>
 

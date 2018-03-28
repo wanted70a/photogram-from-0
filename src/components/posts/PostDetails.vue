@@ -31,6 +31,12 @@ export default {
             'getIndex',
         ])
     },
+    created(){
+        document.body.style.overflow = 'hidden'
+    },
+    destroyed(){
+        document.body.style.overflow = ''
+    }
 }
 </script>
 <style lang="css">

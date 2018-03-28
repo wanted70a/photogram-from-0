@@ -4,6 +4,7 @@
 $header-link-icon-desktop:4rem;
 
 .b-header{
+    padding: 1rem 1%;
     position: fixed;
     display: flex;
     flex-flow: row nowrap;
@@ -31,8 +32,15 @@ $header-link-icon-desktop:4rem;
     }
 
     &__logo{
-        h1{
-            color:black
+        &__white{
+            margin:0 auto;
+            text-align: center;
+            color:black;
+            font-size:4.6rem;
+            font-weight:300;
+            span{
+                font-weight:600;
+            }    
         }
     }
 

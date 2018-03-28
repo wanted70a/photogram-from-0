@@ -1,11 +1,11 @@
 .b-login{
     & .photogram-logo{
         margin:0 auto;
-        padding-top: 5rem;
+        padding-top: 5vh;
         text-align: center;
         color:white;
         font-size:4.6rem;
-        font-weight:400;
+        font-weight:300;
         span{
             font-weight:600;
         }
@@ -36,23 +36,32 @@
     &__form{
         margin:0 auto;
         margin-top: 15vh;
-        width: 25%;
+        width: 75%;
         min-width:32rem;
+        @include breakpoint(tablet){
+            width: 25%;
+        }
+        @include breakpoint(desktop){
+            width: 25%;
+        }
 
         &__signup{
             color:white;
-            margin-top: 2rem;
+            margin-top: 3vh;
+            text-align: center;
             span{
                 color:#09F3A2;
+                font-weight:600;
                 cursor:pointer;
             }
         }
 
         &__forgotPassword{
-            position:relative;
-            top:2rem;
-            color:white;
-            cursor:pointer;
+            font-size: 1.4rem;
+            position: relative;
+            top: 2rem;
+            color: white;
+            cursor: pointer;
         }
     }
 
@@ -64,7 +73,14 @@
             position: absolute;
             left:5px;
             top:-10px;
-            width:25px;
+            width:18px;
+            @include breakpoint(tablet){
+                width:25px;
+            }
+            @include breakpoint(desktop){
+                width:25px;
+            }
+
             &__avatar{
 
                 fill:white;
@@ -77,8 +93,8 @@
         }
 
         & input{
-            @include font-size(16px,16px,16px);
-            padding-left:5rem;
+            @include font-size(24px,16px,16px);
+            padding-left:8rem;
             padding-bottom:0.4rem;
             color:#707070;
             width: 100%;
@@ -86,6 +102,12 @@
             outline:none;
             border:none;
             border-bottom:1px solid white;
+            @include breakpoint(tablet){
+                padding-left:5rem;
+            }
+            @include breakpoint(desktop){
+                padding-left:5rem;
+            }
         }
     }
 }

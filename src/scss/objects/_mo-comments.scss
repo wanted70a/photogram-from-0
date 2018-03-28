@@ -10,8 +10,10 @@
         margin-top:2rem;
     }
     &__img{
+        border-radius: 50%;
         width: 3rem;
-
+        height: 3rem;
+        overflow: hidden;
         & img{
             //max-width: none;
             width: 100%;

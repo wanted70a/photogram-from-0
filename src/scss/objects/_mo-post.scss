@@ -24,7 +24,10 @@
         }
 
         &__profile-picture{
+            border-radius: 50%;
             width: 5rem;
+            height: 5rem;
+            overflow: hidden;
 
             & img{
                 max-width: none;
@@ -78,7 +81,7 @@
 
         &__like{
             fill: rgba(0,0,0,0);
-            stroke:lightgreen;
+            stroke:#09F3A2;
             width:25px;
             height:100%;
         }
@@ -88,7 +91,7 @@
             height:100%;
         }
         &__liked{
-            fill:lightgreen;
+            fill:#09F3A2;
             width:25px;
             height:100%;
 
@@ -103,7 +106,6 @@
     }
 
     &__comments__load-more{
-        position: absolute;
-        top:0;
+
     }
 }
