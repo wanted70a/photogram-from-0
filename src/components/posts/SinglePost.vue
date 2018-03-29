@@ -68,7 +68,7 @@
             </div>
 
             <div class="mo-post__comments__cta">
-                <div v-if='post.comments.length > 0'>
+                <div v-if='post.comments.length > 3'>
                     <p @click='showPostComments( index )'>View All Comments</p>
                 </div>
             </div>

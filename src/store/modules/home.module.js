@@ -51,7 +51,7 @@ const state = {
     index:0,
     lastIndex:'',
     detailsState:false,
-    rqstAmount:16,
+    rqstAmount:20,
     page:1,
   },
 
