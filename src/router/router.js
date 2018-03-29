@@ -42,7 +42,7 @@ var routes = [
     {
       path: '/forgot-password',
       component: ForgotPassword,
-      name:'forogotPassword'
+      name:'forgotPassword'
     },
     {
       path: '/profile/:id',

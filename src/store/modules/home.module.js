@@ -12,10 +12,12 @@ import {
   FETCH_COMMENTS,
   POST_NEW_COMMENT,
   UPDATE_POSTS,
+  APPEND_POSTS,
   UPDATE_CURRENT_POST_INDEX,
   UPDATE_COMMENTS,
   REFRES_COMMENTS,
   UPDATE_COMMENTS_RQST_PAGE,
+  UPDATE_POSTS_RQST_PAGE,
   EDIT_COMMENT_BY_ID,
   CLEAR_COMMENTS,
   FETCH_USER_POSTS,
@@ -33,7 +35,9 @@ import {
   SET_LOAD_MORE_COMMENTS,
   SET_COMMENTS,
   PUSH_COMMENTS,
+  PUSH_POSTS,
   SET_COMMENTS_RQST_PAGE,
+  SET_POSTS_RQST_PAGE,
   SET_USER_POSTS,
   SET_POST_DETAILS_STATE,
   SET_COMMENTS_DETAILS_STATE,
@@ -47,7 +51,7 @@ const state = {
     index:0,
     lastIndex:'',
     detailsState:false,
-    rqstAmount:30,
+    rqstAmount:16,
     page:1,
   },
 
@@ -99,6 +103,9 @@ const getters = {
   },
   getCommentsPage( state ){
     return state.comments.page;
+  },
+  getPostsPage( state ){
+    return state.posts.page;
   }
 };
 
@@ -116,6 +123,14 @@ const mutations = {
   },
   [SET_POST_DETAILS_STATE]( state, status){
     state.posts.detailsState = status
+  },
+  [PUSH_POSTS]( state, payload ){
+    let current = state.posts.list;
+    state.posts.list = [ ...current,...payload ];
+   },
+
+  [SET_POSTS_RQST_PAGE]( state, payload){
+    state.posts.page = payload;
   },
 
   //comments
@@ -135,6 +150,7 @@ const mutations = {
   [SET_COMMENTS_RQST_PAGE]( state, payload){
     state.comments.page = payload;
   },
+
 };
 
 const actions = {
@@ -152,6 +168,10 @@ const actions = {
     [UPDATE_POSTS]( { commit }, payload ){
         commit(SET_POSTS, payload )
     },
+
+    [APPEND_POSTS]( { commit }, payload ){
+        commit(PUSH_POSTS, payload )
+    },
     [UPDATE_POST_BY_INDX]( { commit }, payload ){
         //!payload is Obj with 2 paramas  data and index
         commit( SET_POST_BY_INDX, payload );
@@ -161,6 +181,9 @@ const actions = {
     },
     [UPDATE_POST_DETAILS_STATE]( { commit }, status ){
       commit( SET_POST_DETAILS_STATE, status)
+    },
+    [UPDATE_POSTS_RQST_PAGE]( { commit }, payload ){
+        commit( SET_POSTS_RQST_PAGE, payload );
     },
 
     //comments
@@ -188,6 +211,7 @@ const actions = {
     [UPDATE_COMMENTS_RQST_PAGE]( { commit }, payload ){
         commit( SET_COMMENTS_RQST_PAGE, payload );
     },
+
 };
 
 export default {

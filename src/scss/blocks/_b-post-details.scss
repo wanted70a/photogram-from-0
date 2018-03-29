@@ -3,13 +3,15 @@
     background: rgba(0,0,0,0.8);
     color:white;
     width: 100%;
-    top:60px;
+    height: calc(100vh - 7rem);
+    top:7rem;
+    padding-top:4rem;
 
     @include breakpoint( tablet ){
 
     }
     @include breakpoint( desktop ){
-        top:60px
+        top:70px;
     }
 
     // ----- Media objects

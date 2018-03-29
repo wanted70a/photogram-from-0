@@ -15,8 +15,9 @@
         height: 3rem;
         overflow: hidden;
         & img{
-            //max-width: none;
+            max-width: none;
             width: 100%;
+            height: 100%;
         }
     }
 

@@ -24,6 +24,11 @@
   transform: translateZ(0);
   // -webkit-animation-delay: -0.16s;
   // animation-delay:0;
+  &--home-posts{
+      position: fixed;
+      bottom:7rem;
+      top:auto;
+  }
 }
 .loader:before,
 .loader:after {

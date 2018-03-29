@@ -1,12 +1,13 @@
 //export CONSTS with mutations names
 export const SET_POSTS                      = 'setPosts';
 export const SET_POST_BY_INDX               = 'setPostByIndex';
-export const SET_POSTS_OBJ                  = 'setPostsObject';
+export const SET_POSTS_RQST_PAGE            = 'setPostsRqstState';
 export const SET_TOKEN                      = 'setToken';
 export const SET_LOADING                    = 'loading';
 export const SET_COMMENTS                   = 'setComments';
 export const SET_EDIT_COMMENTS_STATE        = 'setEditCommentsState';
 export const PUSH_COMMENTS                  = 'pushComments';
+export const PUSH_POSTS                     = 'pushPosts';
 export const SET_CURRENT_POST               = 'setCurrentPost';
 export const SET_CURRENT_POST_INDEX         = 'setCurrentPostIndex';
 export const SET_CURRENT_COMMENT            = 'setCurrentComment';

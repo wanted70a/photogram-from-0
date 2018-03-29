@@ -4,7 +4,7 @@
 $header-link-icon-desktop:4rem;
 
 .b-header{
-    padding: 1rem 1%;
+    padding: 0 2rem;
     position: fixed;
     display: flex;
     flex-flow: row nowrap;
@@ -12,7 +12,16 @@ $header-link-icon-desktop:4rem;
     align-items:center;
     border-bottom: 1px solid black;
     background: white;
-    width: 100%;
+    width: 100vw;
+    height: 7rem;
+
+    &.fixedBody {
+      @include breakpoint(desktop) {
+        //overflow: hidden;
+        //padding-right: 15px;
+
+      }
+    }
 
     &__icon{
         display: inline-block;
@@ -26,6 +35,8 @@ $header-link-icon-desktop:4rem;
     }
 
     &__navigation{
+
+
         &-link{
 
         }
@@ -40,13 +51,14 @@ $header-link-icon-desktop:4rem;
             font-weight:300;
             span{
                 font-weight:600;
-            }    
+            }
         }
     }
 
     &__utilities{
         display: flex;
         flex-flow: row nowrap;
+        padding-right:1.5rem;
 
         &-search{
 

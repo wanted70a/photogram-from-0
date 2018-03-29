@@ -1,7 +1,11 @@
 <template lang="html">
-    <div class='b-post-details' @click.prevent='hidePostDetails()'>
-        <app-single-post  :post='getCurrentPost' :index='getIndex' :comments='getCurrentPost.comments.slice(0,5)'></app-single-post>
-    </div>
+     <transition name="slide-right-fade">
+        <div class='b-post-details' v-if='getPostDetailsState' @click.prevent='hidePostDetails()'>
+
+            <app-single-post v-if='getPostDetailsState' :post='getCurrentPost' :index='getIndex' :comments='getCurrentPost.comments.slice(0,5)' :key='getCurrentPost.id'></app-single-post>
+
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -29,13 +33,14 @@ export default {
             'getCurrentPost',
             'getCurrentComments',
             'getIndex',
+            'getPostDetailsState'
         ])
     },
     created(){
-        document.body.style.overflow = 'hidden'
+        document.body.classList.add('fixedBody');
     },
     destroyed(){
-        document.body.style.overflow = ''
+        document.body.classList.remove('fixedBody');
     }
 }
 </script>

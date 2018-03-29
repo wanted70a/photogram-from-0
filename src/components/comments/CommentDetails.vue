@@ -1,4 +1,5 @@
 <template lang="html">
+<transition name="slide-right-fade">
     <div class="b-comments-details" @click='hidePostDetails()'>
         <transition name="fetch">
             <div class='loader' v-if='fetching'>LOADING...</div>
@@ -14,6 +15,7 @@
             </div>
         </div>
     </div>
+</transition>
 </template>
 
 <script>
@@ -94,10 +96,10 @@ export default {
     },
 
     created(){
-        document.body.style.overflow = 'hidden'
+        document.body.classList.add('fixedBody');
     },
     destroyed(){
-        document.body.style.overflow = ''
+        document.body.classList.remove('fixedBody');
     }
 }
 </script>

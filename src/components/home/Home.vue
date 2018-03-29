@@ -1,8 +1,9 @@
 <template lang="html">
     <div>
-        <app-header></app-header>
+        <app-header v-if='true'></app-header>
         <!-- <router-view></router-view> -->
         <div class="b-posts-list l">
+            <div class='loader loader--home-posts' v-if='fetching'>LOADING...</div>
              <transition-group  name="card" tag="div" class="b-posts-list__inner" >
                  <app-single-post v-for='( post, index ) in getPosts' :post='post' :index='index' :comments='post.comments.slice(0,3)' :key="post.id"></app-single-post>
              </transition-group>
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-import { FETCH_POSTS, UPDATE_LOGED_USER, UPDATE_POSTS } from '../../store/modules/actions.types.js'
+import { FETCH_POSTS, UPDATE_LOGED_USER, UPDATE_POSTS, UPDATE_POSTS_RQST_PAGE, APPEND_POSTS } from '../../store/modules/actions.types.js'
 import { mapGetters } from 'vuex'
 
 import SinglePost from '../posts/SinglePost.vue'
@@ -22,6 +23,11 @@ import Header from '../home/Header.vue'
 import CommentDetails from '../comments/CommentDetails.vue'
 
 export default {
+    data(){
+        return{
+            fetching:false,
+        }
+    },
     components:{
         'app-single-post':              SinglePost,
         'app-header':                   Header,
@@ -32,6 +38,7 @@ export default {
     computed:{
         ...mapGetters([
             'getPosts',
+            'getPostsPage',
             'getPostDetailsState',
             'getCommentsDetailsState'
         ])
@@ -39,15 +46,15 @@ export default {
 
     methods:{
         scrollFunction(e){
-            console.log('scrolllll');
-            console.log(e);
-            //let containerHeight  = document.querySelector('.b-comments-details__inner').offsetHeight;
-            let top              = e.target.scrollTop;
-            let scrollHeight     = e.target.scrollHeight;
-            console.log('t',top);
-            console.log('h',scrollHeight);
-            if( ( scrollHeight - top ) <= ( containerHeight ) ){
-                this.loadMoreComments();
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    // you're at the bottom of the page
+                    this.fetching = true;
+                    this.$store.dispatch( UPDATE_POSTS_RQST_PAGE, (this.getPostsPage + 1 ) );
+                    this.$store.dispatch( FETCH_POSTS )
+                    .then( res => {
+                        this.$store.dispatch( APPEND_POSTS, res.data.data )
+                        this.fetching = false;
+                    })
             }
         }
     },
@@ -61,11 +68,11 @@ export default {
     },
 
     created: function () {
-        document.body.addEventListener('scroll', this.scrollFunction);
-        console.log(document.body);
+        document.addEventListener('scroll', this.scrollFunction);
+
     },
     destroyed: function () {
-        document.body.removeEventListener('scroll', this.scrollFunction);
+        document.removeEventListener('scroll', this.scrollFunction);
     }
 }
 </script>
