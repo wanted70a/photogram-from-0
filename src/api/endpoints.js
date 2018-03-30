@@ -1,4 +1,4 @@
-//export const ROOT           =    'http://192.168.0.154:8000'
+// export const ROOT           =      'http://192.168.0.154:8000'
 export const ROOT           =      'http://54.37.227.57'
 export const API_URL        =      ROOT +       '/api'
 export const LOGIN          =      API_URL +    '/auth/login'

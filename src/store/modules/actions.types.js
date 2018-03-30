@@ -1,5 +1,6 @@
 //export CONSTS with action names
 export const FETCH_POSTS                     = 'fetchPosts';
+export const FETCH_POSTS_TEST                = 'fetchPosts';
 export const FETCH_POST_BY_ID                = 'fetchPostById';
 export const FETCH_POSTS_BY_USER_ID          = 'fetchPostByUserId';
 export const UPDATE_POST_BY_INDX             = 'updatePostByIndex';
@@ -13,6 +14,7 @@ export const UPDATE_CURRENT_POST_INDEX       = 'updateCurrentIndex';
 export const UPDATE_CURRENT_POST             = 'updateCurrentPost';
 export const UPDATE_LOGED_USER               = 'updateLogedUser';
 export const FETCH_COMMENTS                  = 'fetchComments';
+export const DELETE_COMMENT_BY_ID            = 'deleteCommentById';
 export const UPDATE_SINGLE_POST              = 'updateSinglePost';
 export const UPDATE_COMMENTS                 = 'updateComments';
 export const EDIT_COMMENT_BY_ID              = 'editCommentById';

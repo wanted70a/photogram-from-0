@@ -3,7 +3,9 @@
         <app-header v-if='true'></app-header>
         <!-- <router-view></router-view> -->
         <div class="b-posts-list l">
-            <div class='loader loader--home-posts' v-if='fetching'>LOADING...</div>
+            <transition name='fade'>
+                <div class='loader loader--home-posts' v-if='fetching'>LOADING...</div>
+            </transition>
              <transition-group  name="card" tag="div" class="b-posts-list__inner" >
                  <app-single-post v-for='( post, index ) in getPosts' :post='post' :index='index' :comments='post.comments.slice(0,3)' :key="post.id"></app-single-post>
              </transition-group>
@@ -62,7 +64,8 @@ export default {
     beforeCreate(){
       this.$store.dispatch( FETCH_POSTS )
       .then( res => {
-          this.$store.dispatch( UPDATE_POSTS, res.data.data )
+          this.$store.dispatch( UPDATE_POSTS, res.data.data );
+          this.fetching = false;
       })
       //this.$store.dispatch( UPDATE_LOGED_USER, headers );
     },

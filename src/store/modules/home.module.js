@@ -5,6 +5,7 @@ import router from '../../router/router.js'
 
 import {
   //import names for actions
+  FETCH_POSTS_TEST,
   FETCH_POSTS,
   FETCH_POST_BY_ID,
   FETCH_POSTS_BY_USER_ID,
@@ -23,6 +24,7 @@ import {
   FETCH_USER_POSTS,
   UPDATE_POST_DETAILS_STATE,
   UPDATE_COMMENTS_DETAILS_STATE,
+  DELETE_COMMENT_BY_ID,
 } from './actions.types'
 
 import {
@@ -51,7 +53,7 @@ const state = {
     index:0,
     lastIndex:'',
     detailsState:false,
-    rqstAmount:20,
+    rqstAmount:12,
     page:1,
   },
 
@@ -62,6 +64,11 @@ const state = {
       page:1,
       detailsState:false,
       loadMoreComments:'true',
+  },
+
+  user:{
+      rqstAmount:12,
+      page:1,
   },
 
 
@@ -155,6 +162,10 @@ const mutations = {
 
 const actions = {
     //posts
+    [FETCH_POSTS_TEST]( { commit }, page ){
+        return PostsService.get( { amount:10, page:page }  )
+    },
+
     [FETCH_POSTS]( { commit } ){
         return PostsService.get( { amount:state.posts.rqstAmount, page:state.posts.page }  )
 
@@ -193,6 +204,9 @@ const actions = {
     [EDIT_COMMENT_BY_ID]({ commit }, payload ){
         //!payload is Obj with 2 paramas  body and id
         return CommentsService.patch( { id:payload.id, body:payload.body } )
+    },
+    [DELETE_COMMENT_BY_ID]({ commit }, id ){
+        return CommentsService.delete( id)
     },
     [UPDATE_COMMENTS_DETAILS_STATE]( { commit }, status ){
       commit( SET_COMMENTS_DETAILS_STATE, status)

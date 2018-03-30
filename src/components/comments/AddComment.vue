@@ -48,6 +48,7 @@ export default {
         ])
     },
 
+
     props:['comment']
 }
 </script>

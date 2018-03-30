@@ -4,11 +4,13 @@ import VueRouter from 'vue-router'
 //COMPONENTS T0 BE RENDERED
 import App from '../App.vue'
 import Home from '../components/home/Home.vue'
+import Create from '../components/home/CreateNewPost.vue'
 import Login from '../components/home/Login.vue'
 import Signup from '../components/home/Signup.vue'
 import Terms from '../components/home/Terms.vue'
 import ForgotPassword from '../components/home/ForgotPassword.vue'
 import Profile from '../components/home/Profile.vue'
+import EditProfile from '../components/home/EditProfile.vue'
 import Comments from '../components/comments/CommentDetails.vue'
 import PostDetails from '../components/posts/PostDetails.vue'
 
@@ -48,6 +50,18 @@ var routes = [
       path: '/profile/:id',
       component: Profile,
       name:'profile',
+    },
+    {
+      path: '/create',
+      component: Create,
+      name:'create',
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/edit-profile',
+      component: EditProfile,
+      name:'editProfile',
+      meta: { requiresAuth: true },
     },
 ]
 

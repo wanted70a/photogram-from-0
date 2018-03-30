@@ -18,7 +18,7 @@
               <p>{{getUser.info.about}}</p>
           </div>
           <div v-if=" getUser.info.id == getMyId" class="c-user-info__edit">
-              <button type="button" class='btn btn--edit-profile'>EDTI PROFILE</button>
+              <router-link :to="{ name: 'editProfile', params: {} }" tag='button' class='btn btn--edit-profile'>EDIT PROFILE</router-link>
           </div>
       </div>
   </div>

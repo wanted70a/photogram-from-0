@@ -33,6 +33,14 @@ const api = {
         console.log(error);
       })
   },
+
+  delete( url, config ){
+      Vue.axios
+      .delete( url, config )
+      .catch( (error) => {
+        console.log(error);
+      })
+  },
   authHeader(){
       let token     = window.localStorage.token;
       let headers   = {
@@ -98,6 +106,12 @@ export const CommentsService = {
         let data = {};
         data.body = params.body;
         return api.patch( `${COMMENTS}/${params.id}`,  data,  { headers:headers } );
+    },
+
+    delete( id ){
+        let config = {};
+        config.headers = api.authHeader();
+        return api.delete( `${COMMENTS}/${id}`, config )
     },
 };
 export const UserService = {

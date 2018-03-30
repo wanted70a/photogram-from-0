@@ -14,6 +14,7 @@ $header-link-icon-desktop:4rem;
     background: white;
     width: 100vw;
     height: 7rem;
+    z-index: 100000;
 
     &.fixedBody {
       @include breakpoint(desktop) {

@@ -1,7 +1,7 @@
 <template lang="html">
 <transition name="slide-right-fade">
     <div class="b-comments-details" @click='hidePostDetails()'>
-        <transition name="fetch">
+        <transition name="fade">
             <div class='loader' v-if='fetching'>LOADING...</div>
         </transition>
         <div class="b-comments-details__inner" @click.stop='' v-on:scroll="scrollFunction">

@@ -11,7 +11,7 @@
             </div>
         </router-link>
 
-        <router-link class='b-header__navigation-link' to="/">
+        <router-link class='b-header__navigation-link' to="/create">
             <i class='b-header__icon'>UP</i>
         </router-link>
 
