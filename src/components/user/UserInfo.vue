@@ -6,14 +6,16 @@
                   <h2>{{getUser.info.name}}</h2>
               </div>
               <div class="c-user-info__media">
-                  <img src="" alt="">
+                  <img :src="IMG + getUser.info.image.profile " alt="">
               </div>
           </div>
           <div class="c-user-info__stats">
-              <p>POSTS: {{getUser.info.posts_count}}</p>
-              <p>FOLLOWERS: {{getUser.info.followers_count}}</p>
-              <p>FOLLOWING: {{getUser.info.following_count}}</p>
+
+              <p> <span class='num'>{{getUser.info.posts_count}}</span>    <span class='txt'> posts</span></p>
+              <p><span class='num'>{{getUser.info.followers_count}}</span> <span class='txt'> followers </span></p>
+              <p><span class='num'>{{getUser.info.following_count}}</span> <span class='txt'> following </span></p>
           </div>
+
           <div class="c-user-info__about">
               <p>{{getUser.info.about}}</p>
           </div>

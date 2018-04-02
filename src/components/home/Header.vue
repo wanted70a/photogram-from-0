@@ -5,7 +5,7 @@
             <i class='b-header__icon'>HP</i>
         </router-link>
 
-        <router-link :to="{ name: 'profile', params: { id:getLogedUser.info.id } }"  class="b-header__navigation-link">
+        <router-link :to="{ name: 'profile', params: { id:getMyId } }"  class="b-header__navigation-link">
             <div class='b-header__icon'>
                 <!-- <img :src="IMG + getLogedUser.info.image.profile" alt=""> -->
             </div>
@@ -51,7 +51,8 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'getLogedUser'
+            'getLogedUser',
+            'getMyId'
         ])
     }
 }

@@ -1,7 +1,7 @@
 // ----- Media objects
 .mo-post{
     //position:relative;
-    transition: all .3 ease;
+    transition: all .3s ease;
 
     @include breakpoint(tablet){
 

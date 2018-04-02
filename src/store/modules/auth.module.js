@@ -13,6 +13,7 @@ import {
     //ACTIONS NAMES
     LOGIN_AUTH,
     FETCH_USER_BY_ID,
+    LOGOUT_AUTH,
 } from  './actions.types'
 
 
@@ -63,7 +64,9 @@ const getters = {
     },
 
     getMyId( stae ){
-        return state.logedUser.info.id
+        if(  window.localStorage.userId ){
+            return window.localStorage.userId
+        }
     }
 };
 
@@ -75,6 +78,7 @@ const mutations = {
         AuthService.userInfo()
         .then( res => {
             state.logedUser.info = res.data.data;
+            window.localStorage.setItem( 'userId', res.data.data.id )
         })
     },
     [SET_USER]( state, data ){
@@ -91,6 +95,11 @@ const actions = {
             commit( SET_LOGED_USER );
             router.push({ name: 'home' });
         });
+    },
+    [LOGOUT_AUTH]({ commit }){
+        window.localStorage.setItem( 'userId', 0 );
+        window.localStorage.setItem( 'token', 0 );
+        router.push({ name: 'home' });
     },
     [FETCH_USER_BY_ID]( { commit }, id ){
         return UserService.getById( id )

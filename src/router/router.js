@@ -13,6 +13,7 @@ import Profile from '../components/home/Profile.vue'
 import EditProfile from '../components/home/EditProfile.vue'
 import Comments from '../components/comments/CommentDetails.vue'
 import PostDetails from '../components/posts/PostDetails.vue'
+import UploadPhoto from '../components/user/UploadPhoto.vue'
 
 
 Vue.use(VueRouter);
@@ -62,6 +63,14 @@ var routes = [
       component: EditProfile,
       name:'editProfile',
       meta: { requiresAuth: true },
+      children:[
+          {
+            path: '/upload-photo',
+            component: UploadPhoto,
+            name:'uploadPhoto',
+            meta: { requiresAuth: true },
+          },
+      ]
     },
 ]
 

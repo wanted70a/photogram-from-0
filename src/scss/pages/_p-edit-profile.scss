@@ -1,0 +1,5 @@
+.p-edit-profile{
+    text-align:center;
+    @include breakpoint( tablet ){}
+    @include breakpoint( desktop ){}
+}

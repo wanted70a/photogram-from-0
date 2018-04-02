@@ -1,5 +1,7 @@
 .b-posts-list{
     padding-top: 8rem;
+    padding-bottom: 4rem;
+
     &__inner{
         @include breakpoint(tablet){
 
@@ -10,6 +12,21 @@
             flex-flow: row wrap;
             justify-content: space-between;
         }
+
+        &--block{
+            display:block;
+            & .mo-post{
+                margin:0 auto;
+                margin-bottom:5rem;
+                width:28%;
+            }
+        }
+    }
+
+    &__display-options{
+        text-align: center;
+        position: relative;
+        top: 5rem;
     }
 
 }

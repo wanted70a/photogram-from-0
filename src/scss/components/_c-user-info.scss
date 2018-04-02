@@ -1,0 +1,116 @@
+.c-user-info{
+    display: inline-block;
+    @include breakpoint( tablet ){
+
+    }
+    @include breakpoint( desktop ){
+        display: inline-block;
+        margin:0 auto;
+    }
+
+    &__avatar{
+        float:left;
+    }
+
+    &__name{
+        text-align: center;
+        @include font-size(14px,14px,15px);
+        @include breakpoint( tablet ){
+
+        }
+        @include breakpoint( desktop ){
+
+        }
+    }
+
+    &__media{
+
+        width: 12.5rem;
+        height:12.5rem;
+        border-radius: 50%;
+        overflow: hidden;
+
+        @include breakpoint( tablet ){
+
+        }
+        @include breakpoint( desktop ){
+
+        }
+
+        & img{
+            width: 100%;
+        }
+    }
+
+    &__stats{
+        float:left;
+
+        @include breakpoint( tablet ){
+
+        }
+        @include breakpoint( desktop ){
+            margin-left:2rem;
+            margin-top:2rem;
+        }
+        & p{
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: flex-start;
+            margin-bottom:0.8rem;
+
+            @include font-size(14px, 16px, 16px);
+            font-weight:600;
+
+            @include breakpoint( tablet ){
+
+            }
+            @include breakpoint( desktop ){
+                padding-top:1.5rem;
+            }
+
+            .num{
+                color:#09F3A2;
+                width:3rem;
+                display: inline-block;
+                text-align: left;
+            }
+
+            .txt{
+                font-weight:400;
+                color:black;
+                display: inline-block;
+            }
+        }
+
+    }
+
+    &__about{
+        @include font-size(16px,16px,16px);
+        text-align: left;
+        @include breakpoint( tablet ){
+
+        }
+        @include breakpoint( desktop ){
+            padding-left: 1rem;
+            max-width:30rem;
+        }
+
+        &::before{
+            content:'';
+            display: block;
+            padding-top:1.5rem;
+            clear:both;
+        }
+
+    }
+
+    &__edit{
+        margin-top:1rem;
+        @include breakpoint( tablet ){
+
+        }
+        @include breakpoint( desktop ){
+
+        }
+    }
+}
