@@ -20,7 +20,7 @@
               <p>{{getUser.info.about}}</p>
           </div>
           <div v-if=" getUser.info.id == getMyId" class="c-user-info__edit">
-              <router-link :to="{ name: 'editProfile', params: {} }" tag='button' class='btn btn--edit-profile'>EDIT PROFILE</router-link>
+              <router-link :to="{ name: 'editProfile', params: {userInfo:'1'} }" tag='button' class='c-btn c-btn--edit-profile'>EDIT PROFILE</router-link>
           </div>
       </div>
   </div>
@@ -40,7 +40,8 @@ export default {
     computed:{
         ...mapGetters([
             'getUser',
-            'getMyId'
+            'getLogedUser',
+            'getMyId',
         ])
     }
     //props:['userInfo']

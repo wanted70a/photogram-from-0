@@ -119,5 +119,18 @@ export const UserService = {
         let config = {};
         config.headers = api.authHeader();
         return api.get( `${USER}/?id=${id}`, config );
-    }
+    },
+
+    postProfilePic( params ){
+        let headers = api.authHeader();
+        let data  = params;
+        return api.post( `${USER_AUTH}/image`,  data,  { headers:headers } );
+    },
+
+    updateUserInfo( params ){
+        let headers = api.authHeader();
+        let data = {};
+        data = params;
+        return api.patch( `${USER_AUTH}/update`,  data,  { headers:headers } );
+    },
 };

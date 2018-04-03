@@ -12,6 +12,7 @@ export const SET_CURRENT_POST               = 'setCurrentPost';
 export const SET_CURRENT_POST_INDEX         = 'setCurrentPostIndex';
 export const SET_CURRENT_COMMENT            = 'setCurrentComment';
 export const SET_LOGED_USER                 = 'setLogedUser';
+export const SET_USER_IMAGES                = 'setUserImages';
 export const SET_CACHED_COMMENTS            = 'setCachedComments';
 export const RESET_DEFAULT_COMMENTS         = 'resetDefaultComments';
 export const SET_LOAD_MORE_COMMENTS         = 'setLoadMoreComments';

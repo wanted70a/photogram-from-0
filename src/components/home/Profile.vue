@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="">
         <app-header></app-header>
-        <!-- <router-view></router-view> -->
+        <router-view></router-view>
         <app-user-info></app-user-info>
         <div class="b-posts-list__display-options">
             <svg @click='toggleDisplay( true )' version="1.1" class='b-posts-list__display-options__block' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

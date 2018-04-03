@@ -18,8 +18,11 @@
         color:white;
     }
 
-    &__medium{
-        width:30rem;
+    &__media{
+        width:15rem;
+        height: 15rem;
+        border-radius:50%;
+        overflow: hidden;
         margin:0 auto;
         margin-top: 3rem;
         & img{

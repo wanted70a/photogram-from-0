@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {mapGetters} from 'vuex'
+import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import { LOGIN_AUTH } from '../../store/modules/actions.types'
 
 

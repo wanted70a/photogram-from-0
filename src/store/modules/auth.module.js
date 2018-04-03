@@ -7,6 +7,7 @@ import {
     SET_TOKEN,
     SET_LOGED_USER,
     SET_USER,
+    SET_USER_IMAGES,
 } from './mutations.types'
 
 import {
@@ -14,6 +15,8 @@ import {
     LOGIN_AUTH,
     FETCH_USER_BY_ID,
     LOGOUT_AUTH,
+    UPLOAD_PROFILE_PIC,
+    UPDATE_USER_INFO,
 } from  './actions.types'
 
 
@@ -57,10 +60,14 @@ const getters = {
     },
 
     getUser( state ){
-        return state.user;
+        if(state.user){
+            return state.user;
+        }
     },
     getLogedUser( state ){
-        return state.logedUser;
+        if(state.logedUser){
+            return state.logedUser;
+        }
     },
 
     getMyId( stae ){
@@ -78,11 +85,15 @@ const mutations = {
         AuthService.userInfo()
         .then( res => {
             state.logedUser.info = res.data.data;
-            window.localStorage.setItem( 'userId', res.data.data.id )
+            window.localStorage.setItem( 'userId', res.data.data.id );
+
         })
     },
     [SET_USER]( state, data ){
         state.user.info = data;
+    },
+    [SET_USER_IMAGES]( state, data ){
+        state.logedUser.info.image = data;
     }
 };
 
@@ -105,6 +116,20 @@ const actions = {
         return UserService.getById( id )
         .then( res => {
             commit( SET_USER, res.data.data )
+        })
+    },
+    [UPLOAD_PROFILE_PIC]( { commit }, data ){
+        return UserService.postProfilePic( data )
+        .then( res => {
+            commit( SET_LOGED_USER );
+            commit( SET_USER_IMAGES, res.data.data.image );
+            router.push({ name: 'editProfile' });
+        })
+    },
+    [UPDATE_USER_INFO]( { commit }, data ){
+        return UserService.updateUserInfo( data )
+        .then( res => {
+            router.push( { name: 'profile', params: { id:window.localStorage.userId } });
         })
     }
 };

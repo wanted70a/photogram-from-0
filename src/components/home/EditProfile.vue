@@ -3,32 +3,31 @@
       <router-view></router-view>
       <div class="c-user-info">
           <div class="c-user-info__avatar">
-              <div class="c-user-info__name">
+              <div class="c-user-info__title">
                   <h2>Edit Profile</h2>
               </div>
               <div class="c-user-info__media">
-                  <img :src="IMG + getUser.info.image.profile " alt="">
+                  <img :src="IMG + getLogedUser.info.image.profile " alt="">
               </div>
-              <router-link :to="{ name: 'uploadPhoto', params: {} }" tag='div' class='c-btn c-btn--change-photo'>Change Photo</router-link>
-              <button type="button" > </button>
+              <router-link :to="{ name: 'uploadPhoto', params: {} }" tag='button' class='c-btn c-btn--change-photo'>Change Photo</router-link>
           </div>
       </div>
 
       <form class="p-edit-profile__form"  @submit.prevent = 'submitForm'>
           <div class="p-edit-profile__form__field">
-              <input type="text" :placeholder="getUser.info.name" v-model='name'>
+              <input type="text"  v-model='name'>
           </div>
           <div class="p-edit-profile__form__field">
-              <input type="text" :placeholder="getUser.info.about" v-model='about'>
+              <input type="text"  v-model='about'>
           </div>
           <div class="p-edit-profile__form__section-start">
               <h2>Personal Data</h2>
           </div>
           <div class="p-edit-profile__form__field">
-              <input type="text" :placeholder="getUser.info.phone" v-model='phone'>
+              <input type="text" v-model='phone'>
           </div>
           <div class="p-edit-profile__form__field">
-              <input type="text" :placeholder="getUser.info.gender_id === 1 ?'Musko' :'Zensko' " v-model='gender'>
+              <input type="text" v-model='gender'>
           </div>
           <button type="submit" class='c-btn c-btn--update-profile'>Save Data</button>
       </form>
@@ -36,6 +35,7 @@
 </template>
 
 <script>
+import { UPDATE_USER_INFO } from '../../store/modules/actions.types'
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
 export default {
@@ -51,14 +51,23 @@ export default {
     computed:{
         ...mapGetters([
             'getUser',
-            'getMyId'
+            'getMyId',
+            'getLogedUser',
         ])
     },
     methods:{
         submitForm(){
-            console.log('EDIT PROFILE', this.name, this.about, this.phone, this.gender);
+            this.$store.dispatch(UPDATE_USER_INFO,{ name:this.name, about:this.about, phone:this.phone, gender_id:this.gender } )
         }
+    },
+
+    created(){
+        this.name   =  this.getLogedUser.info.name;
+        this.about  =  this.getLogedUser.info.about;
+        this.phone  =  this.getLogedUser.info.phone;
+        this.gender =  this.getLogedUser.info.gender_id;
     }
+
     //props:['userInfo']
 }
 </script>

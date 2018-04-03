@@ -1,5 +1,55 @@
 .p-edit-profile{
     text-align:center;
-    @include breakpoint( tablet ){}
-    @include breakpoint( desktop ){}
+    position: fixed;
+    top:7rem;
+    height: 100vh;
+    width: 100%;
+    background: white;
+    z-index: 100;
+    @include breakpoint( tablet ){
+
+    }
+    @include breakpoint( desktop ){
+
+    }
+
+    &__form{
+        margin:0 auto;
+        width: 60%;
+        min-width:32rem;
+        @include breakpoint(tablet){
+            width: 25%;
+        }
+        @include breakpoint(desktop){
+            width: 25%;
+        }
+
+        &__section-start{
+            margin-top:6rem;
+        }
+    }
+
+    &__form__field{
+        position: relative;
+        margin-top: 3rem;
+    }
+
+    & input[type='text']{
+        @include font-size(24px,16px,16px);
+        padding-left:1rem;
+        padding-bottom:0.4rem;
+        color:#707070;
+        width: 100%;
+        background-color: transparent;
+        outline:none;
+        border:none;
+        border-bottom:1px solid gray;
+        @include breakpoint(tablet){
+            padding-left:1rem;
+        }
+        @include breakpoint(desktop){
+            padding-left:1rem;
+        }
+    }
+
 }
