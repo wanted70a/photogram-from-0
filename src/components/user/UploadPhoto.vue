@@ -25,10 +25,16 @@ export default {
 
     methods:{
         imageChange(e){
-            this.imageToUpl = e.target.files[0];
-            var fileReader = new FileReader();
-            fileReader.readAsDataURL(e.target.files[0]);
-            fileReader.onload = (e) => { this.imagePreview = e.target.result }
+
+            if((/(jpg|jpeg|png)$/i).test(e.target.files[0].type) ){
+                this.imageToUpl = e.target.files[0];
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL(e.target.files[0]);
+                fileReader.onload = (e) => { this.imagePreview = e.target.result }
+            }else{
+                console.log('Re Upload');
+            }
+
         },
 
         updatePhoto(){
@@ -37,6 +43,7 @@ export default {
                 fd.append('image', this.imageToUpl, this.imageToUpl.name );
                 this.$store.dispatch( UPLOAD_PROFILE_PIC, fd  )
             }
+
         }
     }
 }

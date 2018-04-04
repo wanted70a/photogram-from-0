@@ -1,0 +1,49 @@
+.b-upload-post{
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    position: fixed;
+    top:0;
+    z-index: 3;
+    text-align: center;
+
+    @include breakpoint( tablet ){
+
+    }
+    @include breakpoint( desktop ){
+
+    }
+
+    &__inner{
+        padding-top:4rem;
+
+        @include breakpoint( tablet ){
+
+        }
+        @include breakpoint( desktop ){
+            width:45rem;
+            margin:0 auto;
+        }
+
+    }
+
+    &__title{
+        color:white;
+        margin-bottom: 2rem;
+    }
+
+    &__input{
+        color:white;
+    }
+
+    &__preview{
+        width:30rem;
+        height: 30rem;
+        overflow: hidden;
+        margin:0 auto;
+        margin-top: 3rem;
+        & img{
+            width: 100%;
+        }
+    }
+}

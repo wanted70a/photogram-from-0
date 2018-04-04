@@ -71,7 +71,17 @@ export const PostsService = {
       config.headers = api.authHeader();
       config.params  = data;
       return api.get( POSTS, config )
-  }
+  },
+  postNewPost( params ){
+      let headers = api.authHeader();
+      let data  = params;
+      return api.post( POSTS,  data,  { headers:headers } );
+  },
+  deletePost( id ){
+      let config = {};
+      config.headers = api.authHeader();
+      return api.delete( `${POSTS}/${id}`, config )
+  },
 };
 
 export const AuthService = {

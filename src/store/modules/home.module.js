@@ -9,6 +9,7 @@ import {
   FETCH_POSTS,
   FETCH_POST_BY_ID,
   FETCH_POSTS_BY_USER_ID,
+  POST_NEW_POST,
   UPDATE_POST_BY_INDX,
   FETCH_COMMENTS,
   POST_NEW_COMMENT,
@@ -25,6 +26,7 @@ import {
   UPDATE_POST_DETAILS_STATE,
   UPDATE_COMMENTS_DETAILS_STATE,
   DELETE_COMMENT_BY_ID,
+  DELETE_POST_BY_ID,
 } from './actions.types'
 
 import {
@@ -57,7 +59,7 @@ const state = {
     page:1,
   },
 
-  
+
   comments:{
       visible:false,
       editState:false,
@@ -177,8 +179,17 @@ const actions = {
     [FETCH_POSTS_BY_USER_ID]( { commit }, userId ){
         return PostsService.getByUserId( { amount:state.posts.rqstAmount, page:state.posts.page, user_id:userId } )
     },
+    [POST_NEW_POST]( { commit }, payload ){
+        return PostsService.postNewPost( payload )
+        .then( res => {
+            router.push( { name: 'home' });
+        })
+    },
     [UPDATE_POSTS]( { commit }, payload ){
         commit(SET_POSTS, payload )
+    },
+    [DELETE_POST_BY_ID]( { commit }, id ){
+        return PostsService.deletePost( id)
     },
 
     [APPEND_POSTS]( { commit }, payload ){

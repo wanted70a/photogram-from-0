@@ -10,6 +10,15 @@
             </div>
 
             <div class="mo-post__media" @click='showPostDetails( index )'>
+                <div class="mo-post__delete">
+                    <p v-if='post.user_id == getMyId && !deleteMode' @click.stop='toggleDelete'><b>X</b></p>
+                    <div v-if='deleteMode'  class="mo-post__delete__dialog">
+                        <p>Sure To Delete</p>
+                        <button type="button" class='c-btn c-btn--delete-post'  @click.stop='deletePost( post.id )' >YES</button>
+                        <button type="button" class='c-btn c-btn--delete-post' @click.stop='toggleDelete'>NO</button>
+                    </div>
+                </div>
+
                 <img v-if="post.type_id == 1" :src='IMG + post.media.medium' alt="">
                 <div class="" v-else>
                     <video :src="IMG + post.media"  :poster="IMG + post.thumbnail"></video>
@@ -88,7 +97,7 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import {  UPDATE_CURRENT_POST_INDEX, UPDATE_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_COMMENTS_RQST_PAGE, FETCH_COMMENTS } from '../../store/modules/actions.types'
+import {  UPDATE_CURRENT_POST_INDEX, UPDATE_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_COMMENTS_RQST_PAGE, FETCH_COMMENTS, DELETE_POST_BY_ID } from '../../store/modules/actions.types'
 import SingleComment from '../comments/SingleComment.vue'
 import AddComment from '../comments/AddComment.vue'
 export default {
@@ -96,6 +105,7 @@ export default {
         return {
             IMG:IMG,
             fade:true,
+            deleteMode:false,
         }
     },
     methods:{
@@ -137,6 +147,12 @@ export default {
                 this.fade = true;
             }
         },
+        deletePost( id ){
+            this.$store.dispatch( DELETE_POST_BY_ID, id )
+        },
+        toggleDelete(){
+            this.deleteMode = !this.deleteMode
+        }
 
     },
     computed:{
@@ -147,6 +163,7 @@ export default {
             'getPosts',
             'getCurrentPost',
             'getLastIndex',
+            'getMyId'
         ]),
     },
     components:{

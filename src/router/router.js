@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 //COMPONENTS T0 BE RENDERED
 import App from '../App.vue'
 import Home from '../components/home/Home.vue'
-import Create from '../components/home/CreateNewPost.vue'
+import UploadPost from '../components/posts/UploadPost.vue'
 import Login from '../components/home/Login.vue'
 import Signup from '../components/home/Signup.vue'
 import Terms from '../components/home/Terms.vue'
@@ -57,7 +57,7 @@ var routes = [
     },
     {
       path: '/create',
-      component: Create,
+      component: UploadPost,
       name:'create',
       meta: { requiresAuth: true },
     },
