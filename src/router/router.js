@@ -51,9 +51,6 @@ var routes = [
       path: '/profile/:id',
       component: Profile,
       name:'profile',
-      children:[
-
-      ]
     },
     {
       path: '/create',

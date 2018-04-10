@@ -78,7 +78,7 @@ export default {
                 this.$store.dispatch( UPDATE_POSTS, res.data.data )
             });
             this.$store.dispatch( FETCH_USER_BY_ID, id );
-
+            console.log('DATA UPDATE - Profile.vue');
         },
         toggleDisplay( state ){
             this.grid = state

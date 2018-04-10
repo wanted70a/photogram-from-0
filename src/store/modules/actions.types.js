@@ -30,4 +30,5 @@ export const CLEAR_COMMENTS                  = 'clearComments';
 export const UPDATE_POST_DETAILS_STATE       = 'updatePostDetailsState';
 export const UPDATE_COMMENTS_DETAILS_STATE   = 'updateCommentsDetailsState';
 export const UPDATE_COMMENTS_RQST_PAGE       = 'updateCommentsRqstPage';
-export const POST_NEW_COMMENT                = 'psotNewComment';
+export const POST_NEW_COMMENT                = 'postNewComment';
+export const POP_POST_BY_INDEX               = 'popPostByIndex';

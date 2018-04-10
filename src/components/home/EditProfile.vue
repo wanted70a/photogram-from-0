@@ -7,7 +7,7 @@
                   <h2>Edit Profile</h2>
               </div>
               <div class="c-user-info__media">
-                  <img :src="IMG + getLogedUser.info.image.profile " alt="">
+                  <img :src="IMG + getUser.info.image.profile " alt="">
               </div>
               <router-link :to="{ name: 'uploadPhoto', params: {} }" tag='button' class='c-btn c-btn--change-photo'>Change Photo</router-link>
           </div>

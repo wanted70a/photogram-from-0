@@ -97,7 +97,7 @@
 <script>
 import { IMG } from '../../api/endpoints'
 import { mapGetters } from 'vuex'
-import {  UPDATE_CURRENT_POST_INDEX, UPDATE_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_COMMENTS_RQST_PAGE, FETCH_COMMENTS, DELETE_POST_BY_ID } from '../../store/modules/actions.types'
+import {  UPDATE_CURRENT_POST_INDEX, UPDATE_POSTS, FETCH_POSTS, FETCH_POSTS_BY_USER_ID,POP_POST_BY_INDEX, UPDATE_COMMENTS, UPDATE_POST_DETAILS_STATE, UPDATE_COMMENTS_DETAILS_STATE, UPDATE_COMMENTS_RQST_PAGE, FETCH_COMMENTS, DELETE_POST_BY_ID, UPDATE_POSTS_RQST_PAGE } from '../../store/modules/actions.types'
 import SingleComment from '../comments/SingleComment.vue'
 import AddComment from '../comments/AddComment.vue'
 export default {
@@ -149,6 +149,9 @@ export default {
         },
         deletePost( id ){
             this.$store.dispatch( DELETE_POST_BY_ID, id )
+            .then( res=> {
+                this.$store.dispatch(POP_POST_BY_INDEX, this.index )
+            })
         },
         toggleDelete(){
             this.deleteMode = !this.deleteMode
@@ -173,3 +176,9 @@ export default {
     props:['post', 'index', 'comments']
 }
 </script>
+<style>
+ .mo-post__delete p{
+     box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+     display: inline-block;
+ }
+</style>

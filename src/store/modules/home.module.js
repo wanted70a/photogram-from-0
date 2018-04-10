@@ -27,6 +27,7 @@ import {
   UPDATE_COMMENTS_DETAILS_STATE,
   DELETE_COMMENT_BY_ID,
   DELETE_POST_BY_ID,
+  POP_POST_BY_INDEX,
 } from './actions.types'
 
 import {
@@ -189,11 +190,16 @@ const actions = {
         commit(SET_POSTS, payload )
     },
     [DELETE_POST_BY_ID]( { commit }, id ){
-        return PostsService.deletePost( id)
+        return PostsService.deletePost(id)
     },
 
     [APPEND_POSTS]( { commit }, payload ){
         commit(PUSH_POSTS, payload )
+    },
+    [POP_POST_BY_INDEX]( { commit, state }, index ){
+        var temp = state.posts.list
+        temp.splice(index, 1);
+        commit(SET_POSTS, temp )
     },
     [UPDATE_POST_BY_INDX]( { commit }, payload ){
         //!payload is Obj with 2 paramas  data and index

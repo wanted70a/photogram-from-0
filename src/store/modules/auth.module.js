@@ -60,14 +60,14 @@ const getters = {
     },
 
     getUser( state ){
-        if(state.user){
+        // if(state.user){
             return state.user;
-        }
+        // }
     },
     getLogedUser( state ){
-        if(state.logedUser){
+        //if(state.logedUser){
             return state.logedUser;
-        }
+        //}
     },
 
     getMyId( stae ){
@@ -91,6 +91,7 @@ const mutations = {
     },
     [SET_USER]( state, data ){
         state.user.info = data;
+        console.log('USER SET');
     },
     [SET_USER_IMAGES]( state, data ){
         state.logedUser.info.image = data;
@@ -120,11 +121,6 @@ const actions = {
     },
     [UPLOAD_PROFILE_PIC]( { commit }, data ){
         return UserService.postProfilePic( data )
-        .then( res => {
-            commit( SET_LOGED_USER );
-            commit( SET_USER_IMAGES, res.data.data.image );
-            router.push({ name: 'editProfile' });
-        })
     },
     [UPDATE_USER_INFO]( { commit }, data ){
         return UserService.updateUserInfo( data )

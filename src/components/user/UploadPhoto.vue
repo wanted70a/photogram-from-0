@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { UPLOAD_PROFILE_PIC } from '../../store/modules/actions.types'
+import { UPLOAD_PROFILE_PIC, FETCH_USER_BY_ID } from '../../store/modules/actions.types'
 export default {
     data(){
         return{
@@ -26,7 +26,7 @@ export default {
     methods:{
         imageChange(e){
 
-            if((/(jpg|jpeg|png)$/i).test(e.target.files[0].type) ){
+            if((/(jpg|jpeg|png|svg)$/i).test(e.target.files[0].type) ){
                 this.imageToUpl = e.target.files[0];
                 var fileReader = new FileReader();
                 fileReader.readAsDataURL(e.target.files[0]);
@@ -42,9 +42,19 @@ export default {
                 var fd = new FormData();
                 fd.append('image', this.imageToUpl, this.imageToUpl.name );
                 this.$store.dispatch( UPLOAD_PROFILE_PIC, fd  )
+                .then( res=>{
+                    console.log('upl pic',res);
+                    this.$router.push({ name: 'profile', params: { id:window.localStorage.userId } });
+                })
+
             }
 
-        }
+        },
+    },
+    beforeRouteLeave (to, from, next) {
+        console.log('ROUTE CHANGED');
+        this.$store.dispatch(FETCH_USER_BY_ID, window.localStorage.userId)
+        next()
     }
 }
 </script>
