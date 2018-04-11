@@ -43,4 +43,33 @@ button{
         margin-top:4rem;
         display: inline-block;
     }
+    &--prev-post{
+        background: transparent;
+        position: absolute;
+        top: 25rem;
+        left: 60rem;
+        svg{
+            height:30px;
+            fill:white;
+        }
+    }
+    &--next-post{
+        background: transparent;
+        position: absolute;
+        top: 25rem;
+        right: 60rem;
+        svg{
+            transform:scaleX(-1);
+            height:30px;
+            fill:white;
+        }
+    }
+
+    &--delete-post{
+        width:9rem;
+        text-align:center;
+        @include breakpoint(desktop){
+            width:7rem;
+        }
+    }
 }

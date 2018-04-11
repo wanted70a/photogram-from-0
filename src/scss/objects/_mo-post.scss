@@ -2,6 +2,8 @@
 .mo-post{
     //position:relative;
     transition: all .3s ease;
+    margin-bottom: 6rem;
+    
 
     @include breakpoint(tablet){
 
@@ -29,12 +31,50 @@
             position: absolute;
             top:0;
             bottom:0;
+
+            &__inner{
+                position: absolute;
+                top:50%;
+                left:50%;
+                transform:translate(-50%, -50%);
+                p{
+                    @include font-size(25px, 20px, 22px);
+                    display: block;
+                    padding-bottom: 2rem;
+                }
+            }
+        }
+
+        &__icon{
+            position: absolute;
+            right:3rem;
+            top:2.5rem;
+            cursor: pointer;
+            transition: all .3s ease;
+            @include breakpoint(desktop){
+                right:1rem;
+                top:1.3rem;
+            }
+
+            &--trash{
+                fill:white;
+                width:18px;
+                -webkit-filter: drop-shadow( 1px 1px 1px  rgba(0,0,0,0.8) );
+                filter: drop-shadow( 1px 1px 1px rgba(0,0,0,0.8) );
+                @include breakpoint(desktop){
+                    width:15px;
+                }
+                &:hover{
+                    fill:#09F3A2;
+                }
+            }
         }
     }
 
 
     &__avatar{
         cursor:pointer;
+        display: inline-block;
         @include breakpoint(tablet){
 
         }
@@ -45,11 +85,20 @@
         }
 
         &__profile-picture{
+            display: inline-block;
+            vertical-align: middle;
             cursor:pointer;
             border-radius: 50%;
             width: 5rem;
             height: 5rem;
             overflow: hidden;
+            width: 40px;
+            height: 40px;
+
+            @include breakpoint(desktop){
+                width: 50px;
+                height: 50px;
+            }
 
             & img{
                 max-width: none;
@@ -59,8 +108,13 @@
         }
 
         &__name{
-            width:calc(100% - 5rem);
-            margin-left:2rem;
+            display: inline-block;
+            vertical-align: middle;
+            @include font-size(18px, 22px, 24px);
+            @include breakpoint(desktop){
+                width:calc(100% - 5rem);
+                margin-left:2rem;
+            }
         }
     }
 
@@ -68,12 +122,7 @@
         cursor:pointer;
         margin-top:2rem;
         position: relative;
-        // transition: all .3s ease;
-        //
-        // &:hover{
-        //     transform:translateY(-3px);
-        //     box-shadow: 0px 8px 30px -6px rgba(0,0,0,0.85);
-        // }
+
         & img{
             max-width: none;
             width: 100%;
@@ -87,24 +136,34 @@
     }
 
     &__stats{
-        padding:1.5rem 0;
+        margin-top:2rem;
+        border-bottom:1px solid silver;
+        padding-bottom: 1rem;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+
         @include breakpoint(tablet){
-            padding:1.5rem 0;
+
 
         }
         @include breakpoint(desktop){
-            display: flex;
-            flex-flow: row nowrap;
-            padding:1.5rem 0;
-            border-bottom:1px solid silver;
-            align-items: flex-start;
+
         }
 
 
 
         &__icon{
-            stroke-width: 2.5;
-            margin-right: 2rem;
+            display:inline-block;
+            margin-right: 2.5rem;
+            cursor: pointer;
+
+
+            @include breakpoint(desktop){
+                stroke-width: 2.5;
+                margin-right: 2rem;
+            }
+
             &--last{
                 margin-right: 0;
                 margin-left: auto;
@@ -112,23 +171,44 @@
         }
 
         &__like{
+            transition:all 0.3s ease;
             fill: rgba(0,0,0,0);
             stroke:#09F3A2;
             width:25px;
             height:100%;
+            stroke-width:10px;
+            &:hover{
+                fill: #09F3A2;
+                stroke:white;
+            }
         }
         &__comment{
-            fill: black;
+            transition:all 0.3s ease;
+            fill:#09F3A2;
+            stroke:#09F3A2;
+            stroke-width:10px;
             width:25px;
             height:100%;
+            &:hover{
+                fill: white;
+            }
         }
         &__liked{
+            transition:all 0.3s ease;
             fill:#09F3A2;
+            stroke:#09F3A2;
+            stroke-width:10px;
             width:25px;
             height:100%;
 
         }
+    }
 
+    &__comments{
+        margin-top:2rem;
+        @include breakpoint(desktop){
+
+        }
     }
 
     &__slider-controls{
